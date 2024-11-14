@@ -1,10 +1,10 @@
 <template>
   <!-- Header -->
-  <header class="bg-white-300">
+  <header class="bg-white md:px-12 md:pt-20 md:pb-4">
     <div class="flex justify-between items-center">
       <!-- Logo -->
-      <div class="font-bold text-xl">
-        <RouterLink to="/">Thais Madero</RouterLink>
+      <div class="font-semibold text-xl md:text-4xl">
+        <RouterLink to="/">Soy Cuidador</RouterLink>
       </div>
 
       <!-- Burger Menu Button (Visible on Small Screens) -->
@@ -37,7 +37,7 @@
         ]"
         class="space-y-4 md:space-y-0 md:space-x-4 p-4 md:p-0"
       >
-        <div class="w-full flex justify-end">
+        <div class="w-full flex justify-end md:hidden">
           <!-- Button for close burger menu -->
           <button
             @click="handleClosingMenu"
@@ -64,7 +64,7 @@
           v-for="link in routerLinks"
           :key="link.name"
           :to="link.to"
-          :class="['hover:text-gray-700', { 'font-bold': link.selected }]"
+          :class="['hover:text-gray-700 !mx-4 uppercase tracking-[.25rem]', { 'font-bold': link.selected }]"
           class="block md:inline"
           @click="handleClosingMenu"
         >
@@ -72,7 +72,7 @@
         </RouterLink>
         <a
           href="https://www.instagram.com/soycuidador/"
-          class="hover:text-gray-700 block md:inline"
+          class="hover:text-gray-700 block md:inline !mx-4 uppercase tracking-[.25rem]"
           target="_blank"
           @click="handleClosingMenu"
         >

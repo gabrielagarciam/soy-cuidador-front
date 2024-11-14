@@ -2,7 +2,8 @@
   <button
     :class="[
       `px-2 py-1 rounded border focus:outline-none cursor-pointer hover:opacity-80  ${buttonClass}`,
-      { 'invert-color': ['default'].includes(props.variant) },
+      { 'invert-color': ['default'].includes(variant) },
+      { [`bg-${color} border-${props.color}`]: variant === 'default' && color },
     ]"
     :disabled="disabled"
     @click="$emit('click')"
@@ -20,7 +21,7 @@
 import { computed } from "vue";
 
 defineEmits(["click", "hover", "focus", "blur"]);
-defineOptions({inheritAttrs:true})
+defineOptions({ inheritAttrs: true });
 const props = defineProps({
   variant: {
     type: String,
@@ -72,11 +73,7 @@ const buttonClass = computed(() => {
   }
 
   if (props.variant === "default" && props.color) {
-    colorClasses = `bg-${props.color} border-${props.color}`;
-  }
-
-  if (props.variant === "default" && !props.color) {
-    colorClasses = `bg-transparent border-black/85`;
+    colorClasses = `!bg-${props.color} border-${props.color}`;
   }
 
   return `${colorClasses} ${sizeClasses}`;

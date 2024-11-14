@@ -17,7 +17,7 @@
             <div class="flex flex-row items-center gap-1 text-xs text-black">
               <font-awesome-icon :icon="`fa-regular fa-clock`" />
               <p>
-                {{ calculateReadTime(source.body) }} min read ·
+                {{ calculateReadTime(postBody) }} min read ·
                 {{ source.date }}
               </p>
             </div>
@@ -28,7 +28,7 @@
         </div>
         <p
           class="text-black text-sm leading-6 text-justify px-8"
-          v-html="source.body"
+          v-html="postBody"
         />
       </div>
     </div>
@@ -36,77 +36,29 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { ref, onBeforeMount } from "vue";
 import SharePost from "../components/SharePost.vue";
 import calculateReadTime from "../utils/calculateReadTime";
+import PostController from "../controllers/PostController";
+import { useRoute } from "vue-router";
 
-const source = computed(() => {
-  return {
-    date: "Mar 11, 2024",
-    title: "Post Title",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio tempora voluptas magnam perspiciatis omnis ipsa aut cupiditate",
-    body: ` Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio tempora
-          voluptas magnam perspiciatis omnis ipsa aut cupiditate, ea fugiat quod
-          ab quidem sunt maiores ratione repellendus praesentium laboriosam a
-          voluptates. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Ducimus optio perspiciatis dolorem neque. Alias mollitia temporibus
-          praesentium ullam iste quae ipsum, aperiam explicabo debitis porro
-          ducimus maiores delectus corporis minima? Lorem ipsum, dolor sit amet
-          consectetur adipisicing elit. Odio tempora voluptas magnam
-          perspiciatis omnis ipsa aut cupiditate, ea fugiat quod ab quidem sunt
-          maiores ratione repellendus praesentium laboriosam a voluptates. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit. Ducimus optio
-          perspiciatis dolorem neque. Alias mollitia temporibus praesentium
-          ullam iste quae ipsum, aperiam explicabo debitis porro ducimus maiores
-          delectus corporis minima?<br /><br />
+const route = useRoute();
+const source = ref({});
+const loading = ref(true);
+const error = ref("");
 
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio tempora
-          voluptas magnam perspiciatis omnis ipsa aut cupiditate, ea fugiat quod
-          ab quidem sunt maiores ratione repellendus praesentium laboriosam a
-          voluptates. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Ducimus optio perspiciatis dolorem neque. Alias mollitia temporibus
-          praesentium ullam iste quae ipsum, aperiam explicabo debitis porro
-          ducimus maiores delectus corporis minima? Lorem ipsum, dolor sit amet
-          consectetur adipisicing elit. Odio tempora voluptas magnam
-          perspiciatis omnis ipsa aut cupiditate, ea fugiat quod ab quidem sunt
-          maiores ratione repellendus praesentium laboriosam a voluptates. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit. Ducimus optio
-          perspiciatis dolorem neque. Alias mollitia temporibus praesentium
-          ullam iste quae ipsum, aperiam explicabo debitis porro ducimus maiores
-          delectus corporis minima?<br /><br /><br />
+const postBody = ref("");
 
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio tempora
-          voluptas magnam perspiciatis omnis ipsa aut cupiditate, ea fugiat quod
-          ab quidem sunt maiores ratione repellendus praesentium laboriosam a
-          voluptates. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Ducimus optio perspiciatis dolorem neque. Alias mollitia temporibus
-          praesentium ullam iste quae ipsum, aperiam explicabo debitis porro
-          ducimus maiores delectus corporis minima? Lorem ipsum, dolor sit amet
-          consectetur adipisicing elit. Odio tempora voluptas magnam
-          perspiciatis omnis ipsa aut cupiditate, ea fugiat quod ab quidem sunt
-          maiores ratione repellendus praesentium laboriosam a voluptates. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit. Ducimus optio
-          perspiciatis dolorem neque. Alias mollitia temporibus praesentium
-          ullam iste quae ipsum, aperiam explicabo debitis porro ducimus maiores
-          delectus corporis minima?
-          <br /><br /><br />
-
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio tempora
-          voluptas magnam perspiciatis omnis ipsa aut cupiditate, ea fugiat quod
-          ab quidem sunt maiores ratione repellendus praesentium laboriosam a
-          voluptates. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Ducimus optio perspiciatis dolorem neque. Alias mollitia temporibus
-          praesentium ullam iste quae ipsum, aperiam explicabo debitis porro
-          ducimus maiores delectus corporis minima? Lorem ipsum, dolor sit amet
-          consectetur adipisicing elit. Odio tempora voluptas magnam
-          perspiciatis omnis ipsa aut cupiditate, ea fugiat quod ab quidem sunt
-          maiores ratione repellendus praesentium laboriosam a voluptates. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit. Ducimus optio
-          perspiciatis dolorem neque. Alias mollitia temporibus praesentium
-          ullam iste quae ipsum, aperiam explicabo debitis porro ducimus maiores
-          delectus corporis minima?`,
-  };
+onBeforeMount(async () => {
+  try {
+    let _source = await PostController.get(route.params.id);
+    source.value = _source;
+    postBody.value = _source.content?.join("<br><br>");
+    loading.value = false;
+  } catch (err) {
+    error.value = "No se pudieron cargar el post";
+    loading.value = false;
+  }
 });
 </script>
 
@@ -119,8 +71,6 @@ const source = computed(() => {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-  }
-  .post-content__header {
   }
 }
 </style>

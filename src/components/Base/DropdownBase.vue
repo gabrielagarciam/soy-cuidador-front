@@ -19,12 +19,14 @@
     >
       <div
         v-if="isOpen"
-         v-on-click-outside="closeDropdown"
+        v-on-click-outside="closeDropdown"
         class="absolute rounded-xl mt-3 border border-gray-200 shadow py-2 bg-white -right-[25%]"
         :class="toggleDropdown"
-         ref="target"
+        ref="target"
       >
-        <slot name="overlay"></slot>
+        <div @click="closeDropdown">
+          <slot name="overlay"></slot>
+        </div>
       </div>
     </transition>
   </div>
@@ -32,12 +34,10 @@
 
 <script setup>
 import { ref } from "vue";
-import { vOnClickOutside } from '@vueuse/components'
-
+import { vOnClickOutside } from "@vueuse/components";
 
 // State to control dropdown visibility
 const isOpen = ref(false);
-
 
 // Methods to open, close, and toggle dropdown
 const toggleDropdown = () => {
@@ -47,5 +47,4 @@ const toggleDropdown = () => {
 const closeDropdown = () => {
   isOpen.value = false;
 };
-
 </script>

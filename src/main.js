@@ -10,11 +10,39 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 /* import specific icons */
-import { faCopy, faShareFromSquare, faClock } from "@fortawesome/free-regular-svg-icons";
-import { faWhatsapp, faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import {
+  faCopy,
+  faShareFromSquare,
+  faClock,
+  faTimesCircle,
+  faQuestionCircle,
+  faHandPaper,
+  faCheckCircle,
+  faHeart,
+  faEye
+
+} from "@fortawesome/free-regular-svg-icons";
+import {
+  faWhatsapp,
+  faFacebook,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons";
 
 /* add icons to the library */
-library.add(faWhatsapp, faFacebook, faInstagram, faCopy, faShareFromSquare, faClock);
+library.add(
+  faWhatsapp,
+  faFacebook,
+  faInstagram,
+  faCopy,
+  faShareFromSquare,
+  faClock,
+  faTimesCircle,
+  faQuestionCircle,
+  faHandPaper,
+  faCheckCircle, 
+  faHeart, 
+  faEye
+);
 
 const app = createApp(App);
 

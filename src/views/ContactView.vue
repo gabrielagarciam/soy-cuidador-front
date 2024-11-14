@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-1 flex h-full justify-center mt-8 md:mt-32">
+  <div class="flex-1 flex h-full justify-center md:mt-10">
     <div class="flex-1 py-4 px-2 max-w-4xl gap-8 flex flex-col">
       <h1 class="text-3xl font-medium leading-9 text-black">
         Me encantaría saber de ti, <br />

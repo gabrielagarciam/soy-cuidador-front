@@ -1,41 +1,75 @@
 <template>
-  <div class="bg-white shadow-md rounded-md p-4">
-    <img
-      :src="image"
-      :alt="title"
-      class="w-full h-48 object-cover mb-4 rounded-t-md"
-    />
-    <h3 class="text-lg font-bold mb-2">{{ title }}</h3>
-    <p class="text-gray-600 mb-4 description">{{ description }}</p>
-    <RouterLink :to="`/blog/${id}`">
-      <ButtonBase
-        label="Read more"
-        color="primary"
-        variant="link"
-        class="!px-0"
-      />
+  <div class="relative w-80 h-72 rounded-3xl overflow-hidden cursor-pointer">
+    <RouterLink :to="`/blog/${slug}`">
+      <div class="absolute inset-0 bg-primary">
+        <div class="absolute inset-0">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <path
+              :d="shapePath"
+              fill="none"
+              stroke="rgb(87 72 129 / 51%)"
+              stroke-width="50"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Card content -->
+      <div class="relative h-full p-6 flex flex-col justify-between">
+        <!-- Header -->
+        <div class="space-y-4">
+          <div class="flex justify-between items-start">
+            <span class="text-white/90 text-sm">{{ date }}</span>
+          </div>
+          <h2 class="text-4xl text-white font-bold">{{ title }}</h2>
+          <p class="text-white/90 text-sm leading-snug description">
+            {{ description }}
+          </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="flex items-center space-x-4">
+          <div class="flex items-center space-x-1">
+            <font-awesome-icon
+              icon="fa-regular fa-heart"
+              class="text-white"
+            />
+            <span class="text-white font-medium">5</span>
+          </div>
+          <div class="flex items-center space-x-1">
+            <font-awesome-icon icon="fa-regular fa-eye" class="text-white" />
+            <span class="text-white font-medium">50</span>
+          </div>
+        </div>
+      </div>
     </RouterLink>
   </div>
 </template>
 
 <script setup>
-import { RouterLink } from "vue-router";
-import ButtonBase from "@/components/Base/ButtonBase.vue";
 defineProps({
-  id: {
-    type: Number,
+  title: {
+    type: String,
     required: true,
   },
-  title: {
+  description: {
     type: String,
     required: true,
   },
   image: {
     type: String,
     required: true,
-    default: "https://via.placeholder.com/300x200",
   },
-  description: {
+  slug: {
+    type: String,
+    required: true,
+  },
+  shapePath: {
+    type: String,
+    required: true,
+  },
+  date: {
     type: String,
     required: true,
   },
@@ -47,7 +81,7 @@ defineProps({
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  line-clamp: 2;;
+  line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
 }

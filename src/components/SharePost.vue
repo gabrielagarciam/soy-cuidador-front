@@ -42,23 +42,18 @@
 <script setup>
 import DropdownBase from "./Base/DropdownBase.vue";
 import ButtonBase from "../components/Base/ButtonBase.vue";
-
-function shareOnInstagram(url) {
-  alert(
-    "Instagram doesn't support direct link sharing. You can copy this link and paste it in your bio or stories."
-  );
-  // Optional: Open Instagram in a new tab as a fallback.
-  window.open("https://www.instagram.com", "_blank");
-}
+import { useAlert } from "../composables/useAlert";
 
 function shareOnWhatsApp(url) {
-  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(url)}`;
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
+    window.location.href
+  )}`;
   window.open(whatsappUrl, "_blank");
 }
 
-function shareOnFacebook(url) {
+function shareOnFacebook() {
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-    url
+    window.location.href
   )}`;
   window.open(facebookUrl, "_blank");
 }
@@ -67,7 +62,10 @@ function copyToClipboard(text) {
   navigator.clipboard
     .writeText(text)
     .then(() => {
-      alert("Link copied to clipboard!");
+      useAlert().showAlert({
+        message: "Link copied to clipboard!",
+        type: "success",
+      });
     })
     .catch((err) => {
       console.error("Failed to copy: ", err);
@@ -87,11 +85,6 @@ const shareLinks = [
     name: "WhatsApp",
     icon: "fa-brands fa-whatsapp",
     onClick: shareOnWhatsApp,
-  },
-  {
-    name: "Instagram",
-    icon: "fa-brands fa-instagram",
-    onClick: shareOnInstagram,
   },
   {
     name: "Facebook",

@@ -2,24 +2,26 @@
   <div class="flex flex-col min-h-screen main-layout">
     <!-- Header -->
 
-    <TheMainLayoutHeaderVue
-      class="w-full fixed top-0 left-0 z-10 p-4 shadow bg-white"
-    />
+    <TheMainLayoutHeaderVue class="w-full fixed top-0 left-0 z-10 p-4" />
 
     <!-- Main content -->
-    <div class="flex-grow mx-auto px-4 pt-20 pb-10">
+    <div
+      class="flex-grow mx-auto pb-10 pt-16 md:px-4 md:pt-40 md:max-w-[70rem] h-full grid"
+    >
       <RouterView />
     </div>
 
     <!-- Footer -->
     <TheMainLayoutFooterVue class="w-full bottom-0 left-0 p-4" />
+
+    <AlertBase />
   </div>
 </template>
 
 <script setup>
 import TheMainLayoutHeaderVue from "./TheMainLayoutHeader.vue";
-import TheMainLayoutContentVue from "./TheMainLayoutContent.vue";
 import TheMainLayoutFooterVue from "./TheMainLayoutFooter.vue";
+import AlertBase from "../components/Base/AlertBase.vue";
 import { RouterView } from "vue-router";
 </script>
 
