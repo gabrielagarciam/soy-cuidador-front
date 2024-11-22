@@ -35,11 +35,11 @@
               icon="fa-regular fa-heart"
               class="text-white"
             />
-            <span class="text-white font-medium">5</span>
+            <span class="text-white font-medium">{{ likeCount }}</span>
           </div>
           <div class="flex items-center space-x-1">
             <font-awesome-icon icon="fa-regular fa-eye" class="text-white" />
-            <span class="text-white font-medium">50</span>
+            <span class="text-white font-medium">{{ viewCount }}</span>
           </div>
         </div>
       </div>
@@ -73,6 +73,16 @@ defineProps({
     type: String,
     required: true,
   },
+  viewCount: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  likeCount: {
+    type: Number,
+    required: true,
+    default: 0,
+  }
 });
 </script>
 
