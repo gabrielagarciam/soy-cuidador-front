@@ -30,7 +30,8 @@ export const methodHandler = (handlers) => {
             // Execute the specific method handler
             await handler(req, res);
         } catch (error) {
-            errorHandler(handler);
+            console.log(error)
+            errorHandler(req, res, error);
         }
     };
 };

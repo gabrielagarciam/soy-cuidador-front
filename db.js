@@ -23,4 +23,5 @@ export async function connectToDatabase() {
 
 export const COLLECTIONS = {
     POSTS: 'cuidador_front_collection',
+    EMAIL_SUBSCRIPTIONS: 'emailSubscriptions'
 }

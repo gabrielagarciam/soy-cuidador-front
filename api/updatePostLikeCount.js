@@ -1,29 +1,31 @@
-import { connectToDatabase } from '../db.js';
+import { connectToDatabase, COLLECTIONS } from '../db.js';
 import { postHandler } from "../utils/methodHandler.js";
+import { Errors } from "../utils/errorHandler.js";
 
 const handler = async function handler(req, res) {
     const { slug, increment } = req.body;
 
-    // Ensure that slug and increment values are provided and valid
     if (!slug || (increment !== 1 && increment !== -1)) {
-        return res.status(400).json({ error: 'Invalid request. Slug is required and increment must be 1 or -1.' });
+        throw Errors.badRequest('Invalid request. Slug is required and increment must be 1 or -1.')
     }
 
-    // Connect to the database
     const { db } = await connectToDatabase();
 
     // Update the likeCount field
-    const updatedBlogPost = await db.collection('cuidador_front_collection').findOneAndUpdate(
-        { slug }, // Query filter
-        { $inc: { likeCount: increment } }, // Increment (or decrement) likeCount by 1
-        { returnDocument: 'after' } // Return the updated document
+    const updatedBlogPost = await db.collection(COLLECTIONS.POSTS).findOneAndUpdate(
+        { slug },
+        { $inc: { likeCount: increment } },
+        {
+            returnDocument: 'after',
+            projection: { likeCount: 1 }
+        },
     );
 
     if (!updatedBlogPost) {
-        return res.status(404).json({ error: 'Blog post not found' });
+        throw Errors.notFound('Blog post not found');
     }
 
-    res.status(200).json({likeCount: updatedBlogPost.likeCount});
+    res.status(200).json(updatedBlogPost);
 };
 
 export default postHandler(handler)

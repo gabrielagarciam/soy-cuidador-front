@@ -1,11 +1,12 @@
 import { connectToDatabase, COLLECTIONS } from '../db.js';
 import { getHandler } from "../utils/methodHandler.js";
+import { Errors } from "../utils/errorHandler.js";
 
 const handler = async function handler(req, res) {
     const { slug } = req.query;
 
     if (!slug) {
-        return res.status(400).json({ error: 'Slug is required' });
+        throw Errors.badRequest('Slug is required')
     }
 
     const { db } = await connectToDatabase();
@@ -17,7 +18,7 @@ const handler = async function handler(req, res) {
     );
 
     if (!blogPost) {
-        return res.status(404).json({ error: 'Blog post not found' });
+        throw Errors.notFound('Blog post not found');
     }
 
     res.status(200).json(blogPost);

@@ -1,24 +1,34 @@
-export const errorHandler = (handler) => {
-    return async (req, res) => {
-        try {
-            // Execute the original route handler
-            await handler(req, res);
-        } catch (error) {
-            // Log the error (useful for debugging)
-            console.error('Unhandled error:', error);
+import HttpError from './HttpError.js';
 
-            // Determine the appropriate status code
-            const statusCode = error.statusCode || 500;
+export const errorHandler = (req, res, error) => {
+    console.error('[API ERROR]:', error);
 
-            // Send error response
-            res.status(statusCode).json({
-                error: true,
-                message: error.message || 'Internal Server Error',
-                // Optional: include stack trace in development
-                ...(process.env.NODE_ENV === 'development' && {
-                    stack: error.stack
-                })
-            });
-        }
-    };
+    const statusCode = error.statusCode || 500;
+
+    res.status(statusCode).json({
+        message: error.message || 'Internal Server Error',
+        ...(process.env.NODE_ENV === 'development' && {
+            stack: error.stack
+        })
+    });
+};
+
+export const Errors = {
+    badRequest: (message, details) =>
+        new HttpError(message, 400, details),
+
+    unauthorized: (message, details) =>
+        new HttpError(message, 401, details),
+
+    forbidden: (message, details) =>
+        new HttpError(message, 403, details),
+
+    notFound: (message, details) =>
+        new HttpError(message, 404, details),
+
+    conflict: (message, details) =>
+        new HttpError(message, 409, details),
+
+    unprocessableEntity: (message, details) =>
+        new HttpError(message, 422, details)
 };
