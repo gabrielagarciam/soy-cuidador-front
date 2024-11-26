@@ -22,6 +22,8 @@ import {
   faEye
 
 } from "@fortawesome/free-regular-svg-icons";
+
+import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 import {
   faWhatsapp,
   faFacebook,
@@ -41,7 +43,8 @@ library.add(
   faHandPaper,
   faCheckCircle, 
   faHeart, 
-  faEye
+  faEye, 
+  fasHeart
 );
 
 const app = createApp(App);

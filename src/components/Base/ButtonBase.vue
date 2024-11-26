@@ -4,7 +4,10 @@
       `relative px-2 py-1 rounded border focus:outline-none cursor-pointer hover:opacity-80 ${buttonClass}`,
       { 'opacity-80 pointer-events-none': loading },
       { 'invert-color': ['default'].includes(variant) },
-      { [`bg-${color}/80 border-${props.color}/80`]: variant === 'default' && color },
+      {
+        [`bg-${color}/80 border-${props.color}/80`]:
+          variant === 'default' && color,
+      },
     ]"
     :disabled="disabled"
     @click="(event) => $emit('click', event)"
@@ -13,13 +16,12 @@
     @blur="(event) => $emit('blur', event)"
   >
     <slot>
-      <div
-        v-if="loading"
-        class="spinner-wrapper absolute top-0 bottom-0 left-0 right-0 m-auto"
-      >
-        <div class="spinner"></div>
+      <div class="flex flex-row gap-2">
+        <div v-if="loading" class="spinner-wrapper">
+          <div class="spinner"></div>
+        </div>
+        <span>{{ label }}</span>
       </div>
-      <span>{{ label }}</span>
     </slot>
   </button>
 </template>
@@ -104,7 +106,7 @@ button.invert-color {
   pointer-events: none;
   @apply pointer-events-none flex items-center justify-center;
   .spinner {
-    @apply  border-2  border-solid border-gray-200 border-t-2 border-t-primary rounded-full w-4 h-4 animate-spin;
+    @apply border  border-solid border-gray-200 border-t border-t-primary rounded-full w-4 h-4 animate-spin;
   }
 }
 
