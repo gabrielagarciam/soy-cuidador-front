@@ -2,7 +2,12 @@
   <div class="flex-1 flex">
     <div class="flex-1 py-4 px-2">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <PostPreviewCardSkeleton
+          v-for="_ in Array(skeletonLength)"
+          v-if="loading"
+        />
         <PostPreviewCard
+          v-else
           v-bind="post"
           v-for="(post, key) in posts"
           :key="key"
@@ -15,11 +20,13 @@
 <script setup>
 import { onBeforeMount, ref } from "vue";
 import PostPreviewCard from "@/components/PostPreviewCard.vue";
+import PostPreviewCardSkeleton from "../components/PostPreviewCardSkeleton.vue";
 import PostController from "../controllers/PostController";
 
 const posts = ref([]);
 const loading = ref(true);
 const error = ref("");
+const skeletonLength = 3;
 onBeforeMount(async () => {
   try {
     let postsData = await PostController.getCollection();

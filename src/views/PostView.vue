@@ -1,6 +1,10 @@
 <template>
   <div class="post-content relative">
-    <div class="bg-white py-16 rounded max-w-[45rem] m-auto shadow z-50 mt-12">
+    <PostViewSkeleton v-if="loading" />
+    <div
+      v-else
+      class="bg-white py-16 rounded max-w-[45rem] m-auto shadow z-50 mt-12"
+    >
       <div class="flex flex-col gap-8">
         <div class="w-full flex flex-col gap-2">
           <h1 class="w-full text-center text-3xl font-bold text-black px-8">
@@ -21,7 +25,9 @@
                 {{ source.date }}
               </p>
             </div>
-            <div class="flex flex-row items-center gap-1 text-sm w-fit">
+            <div class="flex flex-row items-center gap-3 text-sm w-fit">
+              <LikePost @click="handleLike" :likeCount="source.likeCount" />
+              <hr class="h-4 w-px bg-black/10" />
               <SharePost />
             </div>
           </div>
@@ -38,7 +44,9 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
 import SharePost from "../components/SharePost.vue";
+import LikePost from "../components/LikePost.vue";
 import calculateReadTime from "../utils/calculateReadTime";
+import PostViewSkeleton from "../components/PostViewSkeleton.vue";
 import PostController from "../controllers/PostController";
 import { useRoute } from "vue-router";
 
@@ -60,6 +68,12 @@ onBeforeMount(async () => {
     loading.value = false;
   }
 });
+
+async function handleLike() {
+  console.log("Like clicked");
+    let _likeCount = await PostController.likePost(source.value.slug);
+  source.value.likeCount = _likeCount;
+}
 </script>
 
 <style lang="postcss" scoped>

@@ -1,14 +1,14 @@
 <template>
-  <div class="relative w-80 h-72 rounded-3xl overflow-hidden cursor-pointer">
+  <div class="relative w-80 h-72 rounded-xl overflow-hidden cursor-pointer">
     <RouterLink :to="`/blog/${slug}`">
-      <div class="absolute inset-0 bg-primary">
+      <div class="absolute inset-0 bg-primary/80">
         <div class="absolute inset-0">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <path
-              :d="shapePath"
+              d="M-20 90 C40 160, 80 100, 140 190 S220 140, 300 180"
               fill="none"
               stroke="rgb(87 72 129 / 51%)"
-              stroke-width="50"
+              stroke-width="40"
               stroke-linecap="round"
             />
           </svg>

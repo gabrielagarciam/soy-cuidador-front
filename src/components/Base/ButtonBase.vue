@@ -1,17 +1,24 @@
 <template>
   <button
     :class="[
-      `px-2 py-1 rounded border focus:outline-none cursor-pointer hover:opacity-80  ${buttonClass}`,
+      `relative px-2 py-1 rounded border focus:outline-none cursor-pointer hover:opacity-80 ${buttonClass}`,
+      { 'opacity-80 pointer-events-none': loading },
       { 'invert-color': ['default'].includes(variant) },
-      { [`bg-${color} border-${props.color}`]: variant === 'default' && color },
+      { [`bg-${color}/80 border-${props.color}/80`]: variant === 'default' && color },
     ]"
     :disabled="disabled"
-    @click="$emit('click')"
-    @mouseover="$emit('hover')"
-    @focus="$emit('focus')"
-    @blur="$emit('blur')"
+    @click="(event) => $emit('click', event)"
+    @mouseover="(event) => $emit('hover', event)"
+    @focus="(event) => $emit('focus', event)"
+    @blur="(event) => $emit('blur', event)"
   >
     <slot>
+      <div
+        v-if="loading"
+        class="spinner-wrapper absolute top-0 bottom-0 left-0 right-0 m-auto"
+      >
+        <div class="spinner"></div>
+      </div>
       <span>{{ label }}</span>
     </slot>
   </button>
@@ -51,6 +58,11 @@ const props = defineProps({
     default: "md",
     validator: (value) => ["sm", "md", "lg"].includes(value),
   },
+  loading: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 });
 
 const buttonClass = computed(() => {
@@ -63,17 +75,17 @@ const buttonClass = computed(() => {
       : "text-base h-10";
 
   if (props.variant === "outlined") {
-    colorClasses = `bg-transparent border-${props.color} text-${props.color}`;
+    colorClasses = `bg-transparent border-${props.color}/80 text-${props.color}/80`;
   }
   if (props.variant === "text") {
-    colorClasses = `!bg-transparent !border-none text-${props.color}`;
+    colorClasses = `bg-transparent !border-none text-${props.color}/80`;
   }
   if (props.variant === "link") {
-    colorClasses = `!bg-transparent !border-none text-${props.color}`;
+    colorClasses = `bg-transparent !border-none text-${props.color}/80`;
   }
 
   if (props.variant === "default" && props.color) {
-    colorClasses = `!bg-${props.color} border-${props.color}`;
+    colorClasses = `bg-${props.color}/80 border-${props.color}/80`;
   }
 
   return `${colorClasses} ${sizeClasses}`;
@@ -85,6 +97,23 @@ button.invert-color {
   span {
     filter: invert(1);
     mix-blend-mode: luminosity;
+  }
+}
+
+.spinner-wrapper {
+  pointer-events: none;
+  @apply pointer-events-none flex items-center justify-center;
+  .spinner {
+    @apply  border-2  border-solid border-gray-200 border-t-2 border-t-primary rounded-full w-4 h-4 animate-spin;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>
