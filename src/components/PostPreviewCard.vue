@@ -5,10 +5,10 @@
         <div class="absolute inset-0">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <path
-              d="M-20 90 C40 160, 80 100, 140 190 S220 140, 300 180"
+              :d="shapePath"
               fill="none"
               stroke="rgb(87 72 129 / 51%)"
-              stroke-width="40"
+              stroke-width="30"
               stroke-linecap="round"
             />
           </svg>
