@@ -1,11 +1,11 @@
-import { connectToDatabase } from '../db.js';
+import { connectToDatabase, COLLECTIONS } from '../db.js';
 import { getHandler } from "../utils/methodHandler.js";
 
 const handler = async function handler(req, res) {
     const {db} = await connectToDatabase();
 
     const documents = await db
-        .collection('cuidador_front_collection')
+        .collection(COLLECTIONS.POSTS)
         .find({})
         .project({
             slug: 1,

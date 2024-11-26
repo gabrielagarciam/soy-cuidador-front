@@ -9,10 +9,7 @@ let db;
 export async function connectToDatabase() {
     if (!client) {
         // Initialize MongoDB client if not already connected
-        client = await MongoClient.connect(MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        client = await MongoClient.connect(MONGO_URI);
         console.log('Connected to MongoDB');
     }
 
@@ -22,4 +19,8 @@ export async function connectToDatabase() {
     }
 
     return { client, db };
+}
+
+export const COLLECTIONS = {
+    POSTS: 'cuidador_front_collection',
 }

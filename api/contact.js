@@ -1,5 +1,6 @@
 import { Resend } from 'resend';
 import validator from 'validator';
+import { postHandler } from "../utils/methodHandler.js";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -56,65 +57,27 @@ function validateInput(data) {
     };
 }
 
-/**
- * Vercel Serverless Function Handler
- * @param {Object} req - Incoming request
- * @param {Object} res - Response object
- */
-export default async function handler(req, res) {
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
-    res.setHeader(
-        'Access-Control-Allow-Headers',
-        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-    );
+const handler = async (req, res) => {
+    const { sanitizedName, email, sanitizedMessage } = validateInput(req.body);
 
-    // Handle OPTIONS request for CORS preflight
-    if (req.method === 'OPTIONS') {
-        res.status(200).end();
-        return;
+    const { error } = await resend.emails.send({
+        from: 'Your Company <onboarding@resend.dev>',
+        to: 'gabrielpinto16@gmail.com',
+        subject: `New Contact Form Submission from ${sanitizedName}`,
+        html: `
+            <h1>New Contact Form Submission</h1>
+            <p><strong>Name:</strong> ${sanitizedName}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Message:</strong></p>
+            <p>${sanitizedMessage}</p>
+          `
+    });
+
+    if (error) {
+        throw new Error(error.message);
     }
 
-    // Only allow POST method
-    if (req.method !== 'POST') {
-        res.status(405).json({ error: 'Method Not Allowed' });
-        return;
-    }
-
-    try {
-        const { sanitizedName, email, sanitizedMessage } = validateInput(req.body);
-
-        // Send email using Resend
-        const { error } = await resend.emails.send({
-            from: 'Your Company <onboarding@resend.dev>',
-            to: 'soycuidador.info@gmail.com',
-            subject: `New Contact Form Submission from ${sanitizedName}`,
-            html: `
-                <h1>New Contact Form Submission</h1>
-                <p><strong>Name:</strong> ${sanitizedName}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Message:</strong></p>
-                <p>${sanitizedMessage}</p>
-              `
-        });
-
-        if (error) {
-            console.error('Email sending failed:', error);
-            res.status(500).json({ error: 'Failed to send email' });
-            return;
-        }
-
-        // Success response
-        res.status(200).json({ message: 'Message sent successfully' });
-
-    } catch (error) {
-        console.error('Contact form error:', error);
-
-        // Determine appropriate error response
-        const statusCode = error.message.includes('Invalid') ? 400 : 500;
-        res.status(statusCode).json({
-            error: error.message || 'An unexpected error occurred'
-        });
-    }
+    res.status(200).json({ message: 'Message sent successfully' });
 }
+
+export default postHandler(handler);
