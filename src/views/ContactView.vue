@@ -81,7 +81,7 @@ const fieldsRules = {
   message: [
     (v) => !!v || "El mensaje es requerido",
     (v) =>
-      (v && v.length <= 10) || "El mensaje debe tener menos de 10 caracteres",
+      (v && v.length <= 1000) || "El mensaje debe tener menos de 1000 caracteres",
   ],
 };
 

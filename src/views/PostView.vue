@@ -69,8 +69,12 @@ onBeforeMount(async () => {
 });
 
 async function handleLike() {
-  let _likeCount = await PostController.likePost(source.value.slug);
-  source.value.likeCount = _likeCount;
+  try {
+    source.value.likeCount = source.value.likeCount + 1;
+    await PostController.likePost(source.value.slug);
+  } catch (err) {
+    source.value.likeCount = source.value.likeCount - 1;
+  }
 }
 </script>
 
