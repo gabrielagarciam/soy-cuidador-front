@@ -1,11 +1,8 @@
 <template>
   <div class="post-content relative">
-    <PostViewSkeleton v-if="loading" />
-    <div
-      v-else
-      class="bg-white py-16 rounded max-w-[45rem] m-auto shadow z-50 mt-12"
-    >
-      <div class="flex flex-col gap-8">
+    <div class="bg-white py-16 rounded max-w-[45rem] m-auto shadow z-50 mt-12">
+      <PostViewSkeleton v-if="loading" />
+      <div class="flex flex-col gap-8" v-else>
         <div class="w-full flex flex-col gap-2">
           <h1 class="w-full text-center text-3xl font-bold text-black px-8">
             {{ source.title }}

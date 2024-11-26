@@ -1,33 +1,27 @@
 <template>
-  <div class="post-content relative">
-    <div
-      class="bg-white py-16 rounded max-w-[45rem] w-[45rem] m-auto shadow z-50 mt-12"
-    >
-      <div class="flex flex-col gap-8">
-        <div class="w-full flex flex-col gap-2">
-          <div class="w-full flex flex-col gap-2 items-center">
-            <div class="w-[70%] h-4 rounded skeleton-animation" />
-            <div class="w-[50%] h-3 rounded skeleton-animation" />
-          </div>
+  <div class="flex flex-col gap-8 md:min-w-[43rem] w-full">
+    <div class="w-full flex flex-col gap-2">
+      <div class="w-full flex flex-col gap-2 items-center">
+        <div class="w-[70%] h-4 rounded skeleton-animation" />
+        <div class="w-[50%] h-3 rounded skeleton-animation" />
+      </div>
 
-          <div
-            class="flex flex-row items-center justify-between border-t border-b py-2 px-8 mt-4"
-          >
-            <div class="flex flex-row items-center gap-1">
-              <div class="w-32 h-2 rounded skeleton-animation" />
-            </div>
-            <div class="flex flex-row items-center gap-1 text-sm w-fit">
-              <div class="w-32 h-2 rounded skeleton-animation" />
-            </div>
-          </div>
+      <div
+        class="flex flex-row items-center justify-between border-t border-b py-2 px-8 mt-4"
+      >
+        <div class="flex flex-row items-center gap-1">
+          <div class="w-32 h-2 rounded skeleton-animation" />
         </div>
-        <div class="flex flex-col gap-3 justify-center items-center">
-          <div
-            class="w-[90%] h-4 rounded skeleton-animation"
-            v-for="_ in Array(14)"
-          />
+        <div class="flex flex-row items-center gap-1 text-sm w-fit">
+          <div class="w-28 h-2 rounded skeleton-animation" />
         </div>
       </div>
+    </div>
+    <div class="flex flex-col gap-3 justify-center items-center">
+      <div
+        class="w-[90%] h-4 rounded skeleton-animation"
+        v-for="_ in Array(14)"
+      />
     </div>
   </div>
 </template>
