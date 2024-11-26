@@ -54,7 +54,6 @@ const route = useRoute();
 const source = ref({});
 const loading = ref(true);
 const error = ref("");
-
 const postBody = ref("");
 
 onBeforeMount(async () => {
@@ -70,8 +69,7 @@ onBeforeMount(async () => {
 });
 
 async function handleLike() {
-  console.log("Like clicked");
-    let _likeCount = await PostController.likePost(source.value.slug);
+  let _likeCount = await PostController.likePost(source.value.slug);
   source.value.likeCount = _likeCount;
 }
 </script>
