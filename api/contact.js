@@ -1,6 +1,7 @@
 import { Resend } from 'resend';
 import validator from 'validator';
 import { postHandler } from "../utils/methodHandler.js";
+import { Errors } from "../utils/errorHandler.js";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -22,32 +23,51 @@ function validateInput(data) {
 
     // Name validation
     if (!name || typeof name !== 'string') {
-        throw new Error('Invalid name');
+        throw Errors.unprocessableEntity('Invalid input', [{
+            field: 'name',
+            issue: 'Invalid data type supplied'
+        }]);
     }
 
     const sanitizedName = validator.escape(name.trim());
 
     if (sanitizedName.length === 0 || sanitizedName.length > MAX_NAME_LENGTH) {
-        throw new Error(`Name must be between 1-${MAX_NAME_LENGTH} characters`);
+        throw Errors.unprocessableEntity('Invalid input', [{
+            field: 'name',
+            issue: `Name must be between 1-${MAX_NAME_LENGTH} characters`
+        }]);
     }
 
     // Email validation
     if (!email || typeof email !== 'string') {
-        throw new Error('Invalid email');
+        throw Errors.unprocessableEntity('Invalid input', [{
+            field: 'email',
+            issue: 'Invalid data type supplied'
+        }]);
     }
+
     if (!validator.isEmail(email)) {
-        throw new Error('Invalid email format');
+        throw Errors.unprocessableEntity('Invalid input', [{
+            field: 'email',
+            issue: 'Invalid email format'
+        }]);
     }
 
     // Message validation
     if (!message || typeof message !== 'string') {
-        throw new Error('Invalid message');
+        throw Errors.unprocessableEntity('Invalid input', [{
+            field: 'message',
+            issue: 'Invalid data type supplied'
+        }]);
     }
 
     const sanitizedMessage = validator.escape(message.trim());
 
     if (sanitizedMessage.length === 0 || sanitizedMessage.length > MAX_MESSAGE_LENGTH) {
-        throw new Error(`Message must be between 1-${MAX_MESSAGE_LENGTH} characters`);
+        throw Errors.unprocessableEntity('Invalid input', [{
+            field: 'message',
+            issue: `Message must be between 1-${MAX_MESSAGE_LENGTH} characters`
+        }]);
     }
 
     return {
