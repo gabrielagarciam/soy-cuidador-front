@@ -6,16 +6,16 @@
       <PostViewSkeleton v-if="loading" />
       <div class="flex flex-col gap-8" v-else>
         <div class="w-full flex flex-col gap-2">
-          <h1 class="w-full text-center text-3xl font-bold text-black px-8">
+          <h1 class="w-full text-center text-3xl font-bold text-black px-4 md:px-8">
             {{ source.title }}
           </h1>
           <h3
-            class="w-full text-center text-sm text-black/85 leading-none px-8"
+            class="w-full text-center text-sm text-black/85 leading-none px-4 md:px-8"
           >
             {{ source.description }}
           </h3>
           <div
-            class="flex flex-row items-center justify-between border-t border-b py-2 px-8 mt-4"
+            class="flex flex-row items-center justify-between border-t border-b py-2 px-2 md:px-8 mt-4"
           >
             <div class="flex flex-row items-center gap-1 text-xs text-black">
               <font-awesome-icon :icon="`fa-regular fa-clock`" />
@@ -34,7 +34,7 @@
           </div>
         </div>
         <p
-          class="text-black text-sm leading-6 text-justify px-8"
+          class="text-black text-sm leading-6 text-justify px-4 md:px-8"
           v-html="postBody"
         />
       </div>
