@@ -1,10 +1,10 @@
 <template>
   <div class="w-full flex flex-col">
-    <MainSectionContainer class="hero-section !py-[27rem] relative md:!py-[25rem]">
+    <MainSectionContainer class="hero-section relative h-screen">
       <div
-        class="flex flex-col justify-center text-container w-full text-center absolute top-0 bottom-0 right-0 left-0 m-auto h-fit md:relative"
+        class="flex flex-col justify-center text-container w-full text-center"
       >
-        <h1 class="text-5xl text-white font-bold mb-4 md:text-7xl ">
+        <h1 class="text-5xl text-white font-bold mb-4 md:text-7xl">
           Soy cuidador
         </h1>
         <AnimatedText
@@ -16,7 +16,10 @@
           ]"
         />
       </div>
-      <ScrollToNextSection target-section="about-section"  v-if="!scrollYPosition"/>
+      <ScrollToNextSection
+        target-section="about-section"
+        v-if="!scrollYPosition"
+      />
     </MainSectionContainer>
     <MainSectionContainer class="about-section" id="about-section">
       <AboutMe />
@@ -84,6 +87,10 @@ onBeforeMount(async () => {
     no-repeat;
   mask-size: cover;
   width: 100%;
+  height: var(--screen-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .subscribe-section {
   @apply mt-10 overflow-hidden relative py-14 flex justify-center z-10;
@@ -113,6 +120,27 @@ onBeforeMount(async () => {
       max-width: 68.5rem;
       gap: 2.5rem;
     }
+  }
+}
+
+@media only screen and (min-width: 48rem) and (max-width: 90rem) {
+  .hero-section > div,
+  .post-section > div,
+  .testimonals-section > div,
+  .about-section > div {
+    max-width: 50rem;
+  }
+  .subscribe-section {
+    > div {
+      max-width: 50rem;
+      gap: 2.5rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 48rem) {
+  .hero-section {
+    height: var(--screen-height);
   }
 }
 </style>
