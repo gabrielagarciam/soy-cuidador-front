@@ -1,10 +1,10 @@
 <template>
   <div class="w-full flex flex-col">
-    <MainSectionContainer class="hero-section !py-[25rem] relative">
+    <MainSectionContainer class="hero-section !py-[27rem] relative md:!py-[25rem]">
       <div
-        class="flex flex-col justify-center text-container w-full text-center"
+        class="flex flex-col justify-center text-container w-full text-center absolute top-0 bottom-0 right-0 left-0 m-auto h-fit md:relative"
       >
-        <h1 class="text-5xl text-white font-bold mb-4 md:text-7xl">
+        <h1 class="text-5xl text-white font-bold mb-4 md:text-7xl ">
           Soy cuidador
         </h1>
         <AnimatedText
