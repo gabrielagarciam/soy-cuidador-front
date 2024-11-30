@@ -21,11 +21,7 @@
       <!-- Burger Menu Button (Visible on Small Screens) -->
       <button
         @click="handleOpeningMenu"
-        :class="[
-          'md:hidden focus:outline-none ',
-          { 'text-gray-700': scrollYPosition > 10 },
-          { 'text-white': scrollYPosition < 10 },
-        ]"
+        :class="['md:hidden focus:outline-none ', burgerMenuClass]"
       >
         <font-awesome-icon icon="fa-solid fa-bars" class="h-6 w-6" />
       </button>
@@ -133,7 +129,6 @@ function handleClosingMenu() {
 function handleOpeningMenu() {
   isMenuOpen.value = true;
 }
-
 </script>
 
 <style lang="postcss" scoped>

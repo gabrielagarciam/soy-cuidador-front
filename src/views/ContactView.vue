@@ -1,9 +1,9 @@
 <template>
   <div
-    class="flex-grow mx-auto pb-10 pt-16 md:px-4 md:pt-40 md:max-w-[70rem] h-full grid"
+    class="contact-view-wrapper flex-grow mx-auto px-10 py-32 md:px-4 md:pt-40 md:max-w-[70rem] h-full grid"
   >
-    <div class="flex-1 flex h-full justify-center md:mt-10">
-      <div class="flex-1 py-4 px-2 max-w-4xl gap-8 flex flex-col">
+    <div class="flex-1 flex h-full justify-center">
+      <div class="flex-1 max-w-4xl gap-8 flex flex-col">
         <h1 class="text-3xl font-medium leading-9 text-black">
           Me encantaría saber de ti, <br />
           ¡Ponte en contacto! 👋
@@ -139,8 +139,19 @@ async function handleSubmit(event) {
       });
       formIsSubmitting.value = false;
     }
-
-    // Perform actual form submission logic here (e.g., send to an API)
   }
 }
 </script>
+
+<style lang="postcss" scoped>
+@media (min-width: 90rem) {
+  .contact-view-wrapper div {
+    @apply max-w-[80rem];
+  }
+}
+@media (min-width: 48rem) and (max-width: 90rem) {
+  .contact-view-wrapper div {
+    @apply max-w-[50rem];
+  }
+}
+</style>

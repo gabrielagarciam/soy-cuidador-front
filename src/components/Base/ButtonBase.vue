@@ -4,10 +4,7 @@
       `relative px-2 py-1 rounded focus:outline-none cursor-pointer hover:opacity-80 ${buttonClass}`,
       { 'opacity-80 pointer-events-none': loading },
       { 'invert-color': ['default'].includes(variant) },
-      {
-        [`bg-${color} border-${props.color}`]:
-          variant === 'default' && color,
-      },
+    
     ]"
     :disabled="disabled"
     @click="(event) => $emit('click', event)"
@@ -68,7 +65,6 @@ const props = defineProps({
     default: false,
   },
 });
-
 const buttonClass = computed(() => {
   let colorClasses = "";
   let sizeClasses =
@@ -78,32 +74,29 @@ const buttonClass = computed(() => {
       ? "text-lg h-12"
       : "text-base h-9";
 
+  const colorMap = {
+    primary: "bg-primary border-primary text-white",
+    secondary: "bg-secondary border-secondary text-white",
+    default: "text-primary bg-white border-gray-300",
+  };
+
   if (props.variant === "outlined") {
-    colorClasses = `bg-transparent border-${props.color} text-${props.color}`;
-  }
-  if (props.variant === "text") {
-    colorClasses = `bg-transparent !border-none text-${props.color}`;
-  }
-  if (props.variant === "link") {
-    colorClasses = `bg-transparent !border-none text-${props.color}`;
-  }
-
-  if (props.variant === "default" && props.color) {
-    colorClasses = `bg-${props.color} border-${props.color}/80`;
+    colorClasses = `bg-transparent border ${colorMap[props.color] || ""}`;
+  } else if (props.variant === "text") {
+    colorClasses = `bg-transparent ${colorMap[props.color] || ""}`;
+  } else if (props.variant === "link") {
+    colorClasses = `bg-transparent ${colorMap[props.color] || ""}`;
+  } else if (props.variant === "default") {
+    colorClasses = `${colorMap[props.color] || ""}`;
   }
 
-  return `!${colorClasses} ${sizeClasses}`;
+  return `${colorClasses} ${sizeClasses}`;
 });
+
+
 </script>
 
 <style lang="postcss" scoped>
-button.invert-color {
-  span {
-    filter: invert(1);
-    mix-blend-mode: luminosity;
-  }
-}
-
 .spinner-wrapper {
   pointer-events: none;
   @apply pointer-events-none flex items-center justify-center;
