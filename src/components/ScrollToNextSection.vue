@@ -20,9 +20,12 @@ let observer = null;
 const scrollToNext = () => {
   const targetElement = document.querySelector(`#${props.targetSection}`); // Use `id` to find the section
   if (targetElement) {
-    targetElement.scrollIntoView({
+    const offset = - 64; 
+    const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY + offset;
+
+    window.scrollTo({
+      top: targetPosition,
       behavior: "smooth", // Smooth scrolling animation
-      block: "start", // Align to the start of the section
     });
   }
 };
