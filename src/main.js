@@ -19,11 +19,18 @@ import {
   faHandPaper,
   faCheckCircle,
   faHeart,
-  faEye
-
+  faEye,
+  faEnvelopeOpen,
 } from "@fortawesome/free-regular-svg-icons";
 
-import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHeart as fasHeart,
+  faChevronRight,
+  faChevronLeft,
+  faTimes,
+  faBars,
+  faChevronDown,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   faWhatsapp,
   faFacebook,
@@ -41,10 +48,16 @@ library.add(
   faTimesCircle,
   faQuestionCircle,
   faHandPaper,
-  faCheckCircle, 
-  faHeart, 
-  faEye, 
-  fasHeart
+  faCheckCircle,
+  faHeart,
+  faEye,
+  fasHeart,
+  faEnvelopeOpen,
+  faChevronRight,
+  faChevronLeft,
+  faTimes,
+  faBars, 
+  faChevronDown
 );
 
 const app = createApp(App);

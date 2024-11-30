@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative w-80 h-72 rounded-xl overflow-hidden cursor-pointer skeleton-animation"
+    class="bg-white rounded-lg shadow-md p-6 cursor-pointer skeleton-animation h-56"
   />
 </template>
 

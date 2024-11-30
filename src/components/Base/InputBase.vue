@@ -17,7 +17,7 @@
     />
 
     <!-- Display error message if there's an error -->
-    <div class="h-4">
+    <div class="h-4" v-if="error">
       <p v-if="error" class="text-red-500 text-xs">
         {{ error }}
       </p>
@@ -29,6 +29,7 @@
 import { ref } from "vue";
 
 defineEmits(["blur", "input", "focus"]);
+defineOptions({ inheritAttrs: true });
 
 // Props passed from parent component
  defineProps({

@@ -1,32 +1,33 @@
 <template>
   <!-- Header -->
-  <header class="bg-white md:px-12 md:pt-20 md:pb-4">
-    <div class="flex justify-between items-center">
+  <header
+    :class="[
+      'h-16 px-4 fixed right-0 left-0 z-20 items-center flex w-full',
+      containerClass,
+    ]"
+  >
+    <div class="flex justify-between items-center w-full">
       <!-- Logo -->
-      <div class="font-semibold text-xl md:text-4xl">
-        <RouterLink to="/">Soy Cuidador</RouterLink>
+      <div class="font-semibold h-8 w-fit flex items-center">
+        <RouterLink to="/">
+          <div class="flex gap-2 items-center mx-1">
+            <div
+              class="bg-white h-12 w-12 rounded-full border border-primary"
+            ></div>
+          </div>
+        </RouterLink>
       </div>
 
       <!-- Burger Menu Button (Visible on Small Screens) -->
       <button
         @click="handleOpeningMenu"
-        class="md:hidden text-gray-800 focus:outline-none"
+        :class="[
+          'md:hidden focus:outline-none ',
+          { 'text-gray-700': scrollYPosition > 10 },
+          { 'text-white': scrollYPosition < 10 },
+        ]"
       >
-        <!-- Icon for burger menu -->
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16m-7 6h7"
-          />
-        </svg>
+        <font-awesome-icon icon="fa-solid fa-bars" class="h-6 w-6" />
       </button>
 
       <!-- Navigation Links -->
@@ -41,22 +42,9 @@
           <!-- Button for close burger menu -->
           <button
             @click="handleClosingMenu"
-            class="md:hidden text-gray-800 focus:outline-none"
+            :class="['md:hidden text-gray-700 focus:outline-none']"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
+            <font-awesome-icon icon="fa-solid fa-times" class="h-6 w-6" />
           </button>
         </div>
 
@@ -64,15 +52,21 @@
           v-for="link in routerLinks"
           :key="link.name"
           :to="link.to"
-          :class="['hover:text-gray-700 !mx-4 uppercase tracking-[.25rem]', { 'font-bold': link.selected }]"
-          class="block md:inline"
+          :class="[
+            '!mx-4 uppercase tracking-[.25rem] block md:inline',
+            { 'font-bold': link.selected },
+            linkClass,
+          ]"
           @click="handleClosingMenu"
         >
           {{ link.name }}
         </RouterLink>
         <a
           href="https://www.instagram.com/soycuidador/"
-          class="hover:text-gray-700 block md:inline !mx-4 uppercase tracking-[.25rem]"
+          :class="[
+            'block md:inline !mx-4 uppercase tracking-[.25rem]',
+            linkClass,
+          ]"
           target="_blank"
           @click="handleClosingMenu"
         >
@@ -86,14 +80,51 @@
 <script setup>
 import { ref, computed } from "vue";
 import { RouterLink, useRoute } from "vue-router";
+import useScrollYPosition from "../composables/useScrollYPosition";
 
 const route = useRoute();
 const isMenuOpen = ref(false);
 const routerLinks = computed(() => [
-  { name: "About", to: "/about", selected: route.name === "about" },
+  { name: "Inicio", to: "/home", selected: route.name === "home" },
   { name: "Blog", to: "/blog", selected: route.name === "blog" },
-  { name: "Contact", to: "/contact", selected: route.name === "contact" },
+  { name: "Contacto", to: "/contacto", selected: route.name === "contact" },
 ]);
+
+// Get scrollYPosition directly from the composable
+const { scrollYPosition } = useScrollYPosition();
+
+const containerClass = computed(() => {
+  return (
+    {
+      home: {
+        "bg-white shadow-lg": scrollYPosition.value > 10,
+        "bg-transparent": scrollYPosition.value <= 10,
+      },
+    }[route.name] || "bg-white"
+  );
+});
+
+const linkClass = computed(() => {
+  return (
+    {
+      home: {
+        "text-gray-700": scrollYPosition.value > 10,
+        "text-gray-700 md:text-white": scrollYPosition.value <= 10,
+      },
+    }[route.name] || "text-gray-700"
+  );
+});
+
+const burgerMenuClass = computed(() => {
+  return (
+    {
+      home: {
+        "text-gray-700": scrollYPosition.value > 10,
+        "text-white": scrollYPosition.value <= 10,
+      },
+    }[route.name] || "text-gray-700"
+  );
+});
 
 function handleClosingMenu() {
   isMenuOpen.value = false;
@@ -102,4 +133,17 @@ function handleClosingMenu() {
 function handleOpeningMenu() {
   isMenuOpen.value = true;
 }
+
 </script>
+
+<style lang="postcss" scoped>
+@media only screen and (min-width: 90rem) {
+  header {
+    @apply flex items-center justify-center px-8;
+    > div {
+      width: 90rem;
+      max-width: 90rem;
+    }
+  }
+}
+</style>

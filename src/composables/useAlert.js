@@ -2,7 +2,6 @@ import { computed, ref } from "vue";
 const alert = ref({
   visible: false,
   type: "info", // Possible values: 'error', 'info', 'warning', 'success'
-  title: "Notification",
   message: "",
 });
 
@@ -13,7 +12,6 @@ export function useAlert() {
       type: options.type || "info",
       message: options.message || "",
     };
-    console.log("gaby showAlert", alert.value);
   };
 
   const hideAlert = () => {

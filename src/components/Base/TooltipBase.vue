@@ -83,8 +83,7 @@ const tooltipPositionClass = computed(() => {
   }
 });
 
-const arrowPositionClass = computed(() => {
-  console.log("gaby props.placement", props.placement);
+const arrowPositionClass = computed(() => {;
   switch (props.placement) {
     case "top":
       return "-mb-[.25rem] bottom-0";

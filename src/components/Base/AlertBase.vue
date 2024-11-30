@@ -1,37 +1,41 @@
 <template>
   <transition name="fade" appear>
-    <div
-      class="absolute right-0 left-0 m-auto z-50 w-fit top-4"
-      v-if="alertManager.alert.value.visible"
-    >
-      <div :class="['flex items-center px-4 py-2 rounded-lg', alertTypeClass]">
-        <font-awesome-icon :icon="alertIcon" class="mr-3 text-xl" />
-
-        <div class="flex flex-row justify-between items-center ml-2">
-          <p class="text-sm">{{ alertManager.alert.value.message }}</p>
-          <p
-            class="text-sm ml-4 cursor-pointer text-black/70"
-            @click="alertManager.hideAlert"
-          >
-            x
-          </p>
-        </div>
-      </div>
-
-      <!-- Progress bar -->
+    <div class="fixed right-0 left-0 m-auto z-50 w-fit top-24 flex justify-center">
       <div
-        :class="[
-          'h-1 -mt-1 rounded-b-md overflow-hidden mx-1',
-          progressBarClass,
-        ]"
+        class="max-w-[80%]"
+        v-if="alertManager.alert.value.visible"
       >
         <div
+          :class="['flex items-center px-4 py-2 rounded-lg', alertTypeClass]"
+        >
+          <font-awesome-icon :icon="alertIcon" class="mr-3 text-xl" />
+
+          <div class="flex flex-row justify-between items-center ml-2">
+            <p class="text-sm">{{ alertManager.alert.value.message }}</p>
+            <p
+              class="text-sm ml-4 cursor-pointer text-black/70"
+              @click="alertManager.hideAlert"
+            >
+              x
+            </p>
+          </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div
           :class="[
-            'h-full  transition-all duration-3000 ease-linear',
-            alertTypeClass,
+            'h-1 -mt-1 rounded-b-md overflow-hidden mx-1',
+            progressBarClass,
           ]"
-          :style="{ width: `${progress}%` }"
-        ></div>
+        >
+          <div
+            :class="[
+              'h-full  transition-all duration-3000 ease-linear',
+              alertTypeClass,
+            ]"
+            :style="{ width: `${progress}%` }"
+          ></div>
+        </div>
       </div>
     </div>
   </transition>

@@ -1,50 +1,31 @@
 <template>
-  <div class="relative w-80 h-72 rounded-xl overflow-hidden cursor-pointer">
-    <RouterLink :to="`/blog/${slug}`">
-      <div class="absolute inset-0 bg-primary/80">
-        <div class="absolute inset-0">
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <path
-              :d="shapePath"
-              fill="none"
-              stroke="rgb(87 72 129 / 51%)"
-              stroke-width="30"
-              stroke-linecap="round"
-            />
-          </svg>
+  <RouterLink :to="`/blog/${slug}`">
+    <div
+      class="bg-[#f9f4f2] rounded-lg shadow-md p-6 cursor-pointer flex flex-col justify-between"
+    >
+      <!-- Title -->
+      <h2 class="text-2xl font-semibold mb-2 text-black">
+        {{ title }}
+      </h2>
+
+      <!-- Description -->
+      <p class="mb-2 text-black/85 text-ellipsis overflow-hidden flex-1">
+        {{ description }}
+      </p>
+
+      <!-- Like and View Count -->
+      <div class="flex items-center space-x-4 text-black/85">
+        <div class="flex items-center space-x-1 text-black/70">
+          <font-awesome-icon icon="fa-regular fa-heart" />
+          <span class="font-medium">{{ likeCount }}</span>
+        </div>
+        <div class="flex items-center space-x-1 text-black/70">
+          <font-awesome-icon icon="fa-regular fa-eye" />
+          <span class="font-medium">{{ viewCount }}</span>
         </div>
       </div>
-
-      <!-- Card content -->
-      <div class="relative h-full p-6 flex flex-col justify-between">
-        <!-- Header -->
-        <div class="space-y-4">
-          <div class="flex justify-between items-start">
-            <span class="text-white/90 text-sm">{{ date }}</span>
-          </div>
-          <h2 class="text-4xl text-white font-bold">{{ title }}</h2>
-          <p class="text-white/90 text-sm leading-snug description">
-            {{ description }}
-          </p>
-        </div>
-
-        <!-- Footer -->
-        <div class="flex items-center space-x-4">
-          <div class="flex items-center space-x-1">
-            <font-awesome-icon
-              icon="fa-regular fa-heart"
-              class="text-white"
-            />
-            <span class="text-white font-medium">{{ likeCount }}</span>
-          </div>
-          <div class="flex items-center space-x-1">
-            <font-awesome-icon icon="fa-regular fa-eye" class="text-white" />
-            <span class="text-white font-medium">{{ viewCount }}</span>
-          </div>
-        </div>
-      </div>
-    </RouterLink>
-  </div>
+    </div>
+  </RouterLink>
 </template>
 
 <script setup>
@@ -65,10 +46,6 @@ defineProps({
     type: String,
     required: true,
   },
-  shapePath: {
-    type: String,
-    required: true,
-  },
   date: {
     type: String,
     required: true,
@@ -82,7 +59,7 @@ defineProps({
     type: Number,
     required: true,
     default: 0,
-  }
+  },
 });
 </script>
 
@@ -92,6 +69,20 @@ defineProps({
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Adjustments for text overflow and layout */
+.text-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.truncate {
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }

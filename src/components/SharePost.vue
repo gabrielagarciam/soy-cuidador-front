@@ -1,12 +1,14 @@
 <template>
   <DropdownBase>
     <ButtonBase
-      class="flex flex-row items-center gap-1 text-xs text-black px-0"
+      class="flex flex-row items-center text-xs text-black px-0"
       variant="text"
       size="sm"
     >
-      <font-awesome-icon :icon="`fa-regular fa-share-from-square`" />
-      <p>Compartir</p>
+      <div class="flex flex-row items-center gap-1">
+        <font-awesome-icon :icon="`fa-regular fa-share-from-square`" />
+        <p class="hidden md:block">Compartir</p>
+      </div>
     </ButtonBase>
 
     <template #overlay>

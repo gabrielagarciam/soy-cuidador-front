@@ -1,4 +1,3 @@
-import { createMemoryHistory, createRouter } from "vue-router";
 import TheMainLayout from "@/layout/TheMainLayout.vue";
 
 const routes = [
@@ -9,10 +8,14 @@ const routes = [
   },
   {
     path: "/",
-    name: "home",
     component: TheMainLayout,
-    redirect: () => ({ name: "blog" }),
+    redirect: () => ({ name: "home" }),
     children: [
+      {
+        path: "home",
+        name: "home",
+        component: () => import("../views/MainView.vue"),
+      },
       {
         path: "blog",
         name: "blog",
@@ -23,19 +26,14 @@ const routes = [
         name: "post",
         component: () => import("../views/PostView.vue"),
       },
+
       {
-        path: "about",
-        name: "about",
-        component: () => import("../views/AboutView.vue"),
-      },
-      {
-        path: "contact",
+        path: "contacto",
         name: "contact",
         component: () => import("../views/ContactView.vue"),
       },
     ],
   },
 ];
-
 
 export default routes;

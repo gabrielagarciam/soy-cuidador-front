@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col items-center justify-center h-full ">
-    <div class="flex flex-col md:flex-row items-center">
+  <div class="flex flex-col items-center justify-center h-full">
+    <div class="flex flex-col lg:flex-row items-center">
       <div class="relative">
         <h1
           class="font-bold absolute text-[#000000]/75 text-2xl leading-6 -left-20 top-2 md:text-4xl md:-left-32 md:top-2 md:leading-[2.5rem] bg-white/80 px-8 rounded-[2px]"
@@ -36,9 +36,3 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: "PodcastPage",
-};
-</script>

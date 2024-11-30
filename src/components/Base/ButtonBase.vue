@@ -1,11 +1,11 @@
 <template>
   <button
     :class="[
-      `relative px-2 py-1 rounded border focus:outline-none cursor-pointer hover:opacity-80 ${buttonClass}`,
+      `relative px-2 py-1 rounded focus:outline-none cursor-pointer hover:opacity-80 ${buttonClass}`,
       { 'opacity-80 pointer-events-none': loading },
       { 'invert-color': ['default'].includes(variant) },
       {
-        [`bg-${color}/80 border-${props.color}/80`]:
+        [`bg-${color} border-${props.color}`]:
           variant === 'default' && color,
       },
     ]"
@@ -15,14 +15,16 @@
     @focus="(event) => $emit('focus', event)"
     @blur="(event) => $emit('blur', event)"
   >
-    <slot>
-      <div class="flex flex-row gap-2">
-        <div v-if="loading" class="spinner-wrapper">
-          <div class="spinner"></div>
+    <span>
+      <slot>
+        <div class="flex flex-row gap-2">
+          <div v-if="loading" class="spinner-wrapper">
+            <div class="spinner"></div>
+          </div>
+          <span>{{ label }} </span>
         </div>
-        <span>{{ label }}</span>
-      </div>
-    </slot>
+      </slot>
+    </span>
   </button>
 </template>
 
@@ -74,23 +76,23 @@ const buttonClass = computed(() => {
       ? "text-sm h-8"
       : props.size === "lg"
       ? "text-lg h-12"
-      : "text-base h-10";
+      : "text-base h-9";
 
   if (props.variant === "outlined") {
-    colorClasses = `bg-transparent border-${props.color}/80 text-${props.color}/80`;
+    colorClasses = `bg-transparent border-${props.color} text-${props.color}`;
   }
   if (props.variant === "text") {
-    colorClasses = `bg-transparent !border-none text-${props.color}/80`;
+    colorClasses = `bg-transparent !border-none text-${props.color}`;
   }
   if (props.variant === "link") {
-    colorClasses = `bg-transparent !border-none text-${props.color}/80`;
+    colorClasses = `bg-transparent !border-none text-${props.color}`;
   }
 
   if (props.variant === "default" && props.color) {
-    colorClasses = `bg-${props.color}/80 border-${props.color}/80`;
+    colorClasses = `bg-${props.color} border-${props.color}/80`;
   }
 
-  return `${colorClasses} ${sizeClasses}`;
+  return `!${colorClasses} ${sizeClasses}`;
 });
 </script>
 

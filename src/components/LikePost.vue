@@ -1,22 +1,24 @@
 <template>
   <ButtonBase
-    class="flex flex-row items-center gap-1 text-xs text-black px-0"
+    class="flex flex-row items-center text-xs text-black px-0"
     variant="text"
     size="sm"
     @click="(e) => $emit('click', e)"
   >
-    <font-awesome-icon
-      :icon="isLiked ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"
-      :class="[
-        'heart-icon',
-        {
-          'text-red-500': isLiked,
-          'animate-like': isLiked,
-          'scale-125': isLiked,
-        },
-      ]"
-    />
-    <p :class="{'text-red-500': isLiked,}">{{ likeCount }}</p>
+    <div class="flex flex-row items-center gap-1">
+      <font-awesome-icon
+        :icon="isLiked ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"
+        :class="[
+          'heart-icon',
+          {
+            'text-red-500': isLiked,
+            'animate-like': isLiked,
+            'scale-125': isLiked,
+          },
+        ]"
+      />
+      <p :class="{ 'text-red-500': isLiked }">{{ likeCount }}</p>
+    </div>
   </ButtonBase>
 </template>
 

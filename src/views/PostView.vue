@@ -1,6 +1,8 @@
 <template>
-  <div class="post-content relative">
-    <div class="bg-white py-16 rounded max-w-[45rem] m-auto shadow z-50 mt-12">
+  <div class="post-content relative mb-4">
+    <div
+      class="bg-white rounded max-w-[20rem] md:max-w-[45rem] m-auto shadow z-50 py-10 mt-28"
+    >
       <PostViewSkeleton v-if="loading" />
       <div class="flex flex-col gap-8" v-else>
         <div class="w-full flex flex-col gap-2">
@@ -22,7 +24,9 @@
                 {{ source.date }}
               </p>
             </div>
-            <div class="flex flex-row items-center gap-3 text-sm w-fit">
+            <div
+              class="flex flex-row items-center gap-1 md:gap-3 text-sm w-fit"
+            >
               <LikePost @click="handleLike" :likeCount="source.likeCount" />
               <hr class="h-4 w-px bg-black/10" />
               <SharePost />

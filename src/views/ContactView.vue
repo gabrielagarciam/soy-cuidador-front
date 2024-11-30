@@ -1,49 +1,53 @@
 <template>
-  <div class="flex-1 flex h-full justify-center md:mt-10">
-    <div class="flex-1 py-4 px-2 max-w-4xl gap-8 flex flex-col">
-      <h1 class="text-3xl font-medium leading-9 text-black">
-        Me encantaría saber de ti, <br />
-        ¡Ponte en contacto! 👋
-      </h1>
-      <form
-        class="flex flex-col items-center justify-center"
-        @submit.prevent="handleSubmit"
-      >
-        <div class="flex flex-col md:flex-row w-full">
-          <InputBase
-            label="Nombre"
+  <div
+    class="flex-grow mx-auto pb-10 pt-16 md:px-4 md:pt-40 md:max-w-[70rem] h-full grid"
+  >
+    <div class="flex-1 flex h-full justify-center md:mt-10">
+      <div class="flex-1 py-4 px-2 max-w-4xl gap-8 flex flex-col">
+        <h1 class="text-3xl font-medium leading-9 text-black">
+          Me encantaría saber de ti, <br />
+          ¡Ponte en contacto! 👋
+        </h1>
+        <form
+          class="flex flex-col items-center justify-center"
+          @submit.prevent="handleSubmit"
+        >
+          <div class="flex flex-col md:flex-row w-full">
+            <InputBase
+              label="Nombre"
+              required
+              v-model="formData.name"
+              @blur="() => validateField('name')"
+              @focus="() => (errors.name = '')"
+              :error="errors.name"
+            />
+            <InputBase
+              label="Email"
+              type="email"
+              v-model="formData.email"
+              @blur="() => validateField('email')"
+              @focus="() => (errors.email = '')"
+              :error="errors.email"
+              required
+            />
+          </div>
+          <TextareaBase
+            label="Mensaje"
             required
-            v-model="formData.name"
-            @blur="() => validateField('name')"
-            @focus="() => (errors.name = '')"
-            :error="errors.name"
+            v-model="formData.message"
+            @blur="() => validateField('message')"
+            @focus="() => (errors.message = '')"
+            :error="errors.message"
           />
-          <InputBase
-            label="Email"
-            type="email"
-            v-model="formData.email"
-            @blur="() => validateField('email')"
-            @focus="() => (errors.email = '')"
-            :error="errors.email"
-            required
-          />
-        </div>
-        <TextareaBase
-          label="Mensaje"
-          required
-          v-model="formData.message"
-          @blur="() => validateField('message')"
-          @focus="() => (errors.message = '')"
-          :error="errors.message"
-        />
 
-        <ButtonBase
-          label="Enviar mensaje"
-          color="primary"
-          type="submit"
-          :loading="formIsSubmitting"
-        />
-      </form>
+          <ButtonBase
+            label="Enviar mensaje"
+            color="primary"
+            type="submit"
+            :loading="formIsSubmitting"
+          />
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -81,7 +85,8 @@ const fieldsRules = {
   message: [
     (v) => !!v || "El mensaje es requerido",
     (v) =>
-      (v && v.length <= 1000) || "El mensaje debe tener menos de 1000 caracteres",
+      (v && v.length <= 1000) ||
+      "El mensaje debe tener menos de 1000 caracteres",
   ],
 };
 
