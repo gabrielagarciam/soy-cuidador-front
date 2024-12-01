@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white rounded-lg shadow-md p-6 cursor-pointer skeleton-animation h-56"
+    class="bg-[#f9f4f2] rounded-lg shadow-md py-6 px-4 cursor-pointer flex flex-col justify-between skeleton-animation h-56"
   />
 </template>
 

@@ -77,7 +77,6 @@ const buttonClass = computed(() => {
   const colorMap = {
     primary: "bg-primary border-primary text-white",
     secondary: "bg-secondary border-secondary text-white",
-    default: "text-primary bg-white border-gray-300",
   };
 
   if (props.variant === "outlined") {

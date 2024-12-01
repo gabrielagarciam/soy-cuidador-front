@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { onBeforeMount, reactive, ref } from "vue";
+import { onBeforeMount, reactive, ref, watch, onBeforeUnmount } from "vue";
 import PostController from "@/controllers/PostController";
 import SubscribeForm from "../components/SubscribeForm.vue";
 import PostCarousel from "../components/PostCarousel.vue";
@@ -58,6 +58,7 @@ import AnimatedText from "../components/AnimatedText.vue";
 import MainSectionContainer from "../components/MainSectionContainer.vue";
 import ScrollToNextSection from "../components/ScrollToNextSection.vue";
 import useScrollYPosition from "../composables/useScrollYPosition";
+import { useIsMobile } from "../composables/useIsMobile";
 
 const error = ref("");
 const postCarouselProps = reactive({
@@ -68,6 +69,7 @@ const postCarouselProps = reactive({
 });
 // Get scrollYPosition directly from the composable
 const { scrollYPosition } = useScrollYPosition();
+const { isMobile } = useIsMobile();
 
 onBeforeMount(async () => {
   try {
@@ -79,6 +81,18 @@ onBeforeMount(async () => {
     postCarouselProps.isLoading = false;
   }
 });
+
+watch(
+  () => isMobile.value,
+  (newVal) => {
+    postCarouselProps.pageSize = newVal ? 1 : 3;
+    postCarouselProps.skeletonSize = newVal ? 1 : 3;
+  },
+  { immediate: true }
+);
+
+onBeforeMount(() => useIsMobile().init());
+onBeforeUnmount(() => useIsMobile().cleanup());
 </script>
 
 <style lang="postcss">

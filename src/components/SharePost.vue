@@ -50,7 +50,7 @@ import DropdownBase from "./Base/DropdownBase.vue";
 import ButtonBase from "../components/Base/ButtonBase.vue";
 import { useAlert } from "../composables/useAlert";
 
-function shareOnWhatsApp(url) {
+function shareOnWhatsApp() {
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
     window.location.href
   )}`;
@@ -69,7 +69,7 @@ function copyToClipboard(text) {
     .writeText(text)
     .then(() => {
       useAlert().showAlert({
-        message: "Link copied to clipboard!",
+        message: "¡Enlace copiado al portapapeles!",
         type: "success",
       });
     })
@@ -80,7 +80,7 @@ function copyToClipboard(text) {
 
 const shareLinks = [
   {
-    name: "Copy Link",
+    name: "Copiar enlace",
     icon: "fa-regular fa-copy",
     onClick: copyToClipboard,
   },

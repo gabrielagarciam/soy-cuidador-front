@@ -1,35 +1,54 @@
 <template>
-  <RouterLink :to="`/blog/${slug}`">
+  <component
+    :is="isFutureDate ? 'div' : 'router-link'"
+    :class="{ 'pointer-events-none': isFutureDate }"
+    v-bind="{ to: isFutureDate ? undefined : `/blog/${slug}` }"
+  >
     <div
-      class="bg-[#f9f4f2] rounded-lg shadow-md p-6 cursor-pointer flex flex-col justify-between"
+      :class="[
+        'bg-[#f9f4f2] rounded-lg shadow-md py-6 px-4  justify-between h-full grid grid-rows-[auto,1rem] gap-4',
+        { 'cursor-pointer': !isFutureDate },
+      ]"
     >
-      <!-- Title -->
-      <h2 class="text-2xl font-semibold mb-2 text-black">
-        {{ title }}
-      </h2>
+      <div class="flex flex-col gap-4">
+        <!-- Title -->
+        <h2 class="text-xl font-semibold text-black leading-[24px]">
+          {{ title }}
+        </h2>
 
-      <!-- Description -->
-      <p class="mb-2 text-black/85 text-ellipsis overflow-hidden flex-1">
-        {{ description }}
-      </p>
+        <!-- Description -->
+        <p class="text-black/85 flex-1 text-sm description">
+          {{ description }}
+        </p>
+      </div>
 
       <!-- Like and View Count -->
-      <div class="flex items-center space-x-4 text-black/85">
-        <div class="flex items-center space-x-1 text-black/70">
-          <font-awesome-icon icon="fa-regular fa-heart" />
-          <span class="font-medium">{{ likeCount }}</span>
+      <div class="flex justify-between">
+        <div class="flex items-center space-x-4 text-black/85">
+          <div class="flex items-center space-x-1 text-black/70">
+            <font-awesome-icon icon="fa-regular fa-heart" />
+            <span class="font-medium">{{ likeCount }}</span>
+          </div>
+          <div class="flex items-center space-x-1 text-black/70">
+            <font-awesome-icon icon="fa-regular fa-eye" />
+            <span class="font-medium">{{ viewCount }}</span>
+          </div>
         </div>
-        <div class="flex items-center space-x-1 text-black/70">
-          <font-awesome-icon icon="fa-regular fa-eye" />
-          <span class="font-medium">{{ viewCount }}</span>
+        <div
+          class="text-[12px] bg-[#FF6F61]/70 px-2 text-white rounded flex items-center justify-center"
+          v-if="isFutureDate"
+        >
+          <span>Próximamente</span>
         </div>
       </div>
     </div>
-  </RouterLink>
+  </component>
 </template>
 
 <script setup>
-defineProps({
+import { computed } from "vue";
+
+const props = defineProps({
   title: {
     type: String,
     required: true,
@@ -38,10 +57,7 @@ defineProps({
     type: String,
     required: true,
   },
-  image: {
-    type: String,
-    required: true,
-  },
+
   slug: {
     type: String,
     required: true,
@@ -61,29 +77,31 @@ defineProps({
     default: 0,
   },
 });
+
+function parseDate(dateStr) {
+  const [day, month, year] = dateStr.split("/");
+  let _date = new Date(`${year}-${month}-${day}`);
+  _date.setHours(0, 0, 0, 0);
+
+  return _date;
+}
+
+const isFutureDate = computed(() => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Remove time part for accurate comparison
+
+  return parseDate(props.date) > today;
+});
 </script>
 
 <style lang="postcss" scoped>
 .description {
+  line-height: 1.25;
+  max-height: 7.5em; /* For 6 lines at 1.25 line height */
+  overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  line-clamp: 6; /* Limit to 6 lines */
+  -webkit-line-clamp: 6; /* Limit to 6 lines */
   -webkit-box-orient: vertical;
-  line-clamp: 2;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Adjustments for text overflow and layout */
-.text-ellipsis {
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limit to 3 lines */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.truncate {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 </style>

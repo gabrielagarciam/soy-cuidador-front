@@ -1,13 +1,16 @@
 <template>
-  <div class="max-w-5xl mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 h-60" v-if="isLoading">
+  <div class="w-full">
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 gap-8 min-h-60 h-auto"
+      v-if="isLoading"
+    >
       <PostPreviewCardSkeleton
         v-for="(_, key) in Array(skeletonSize)"
         :key="key"
       />
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 h-60" v-else>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 min-h-60 h-auto" v-else>
       <PostPreviewCard
         v-for="(item, index) in currentPage"
         v-bind="item"

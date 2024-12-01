@@ -51,7 +51,7 @@ defineProps({
 }
 @media (min-width: 48rem) and (max-width: 90rem) {
   section div {
-    @apply max-w-[50rem];
+    @apply max-w-[60rem];
   }
 }
 </style>
