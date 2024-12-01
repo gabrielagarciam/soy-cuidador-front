@@ -80,18 +80,17 @@ const props = defineProps({
 
 function parseDate(dateStr) {
   const [day, month, year] = dateStr.split("/");
-  let _date = new Date(`${year}-${month}-${day}`);
-  _date.setHours(0, 0, 0, 0);
-
-  return _date;
+  return new Date(year, month - 1, day); // Month is 0-based in JS Date
 }
-
 const isFutureDate = computed(() => {
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Remove time part for accurate comparison
 
-  return parseDate(props.date) > today;
+  const parsedDate = parseDate(props.date); // Use updated parseDate
+  return parsedDate > today;
 });
+
+
 </script>
 
 <style lang="postcss" scoped>
