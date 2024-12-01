@@ -14,6 +14,7 @@
       @blur="(event) => $emit('blur', event)"
       @input="(event) => $emit('input', event)"
       @focus="(event) => $emit('focus', event)"
+      @change="(event) => $emit('change', event)"
     />
 
     <!-- Display error message if there's an error -->
@@ -28,7 +29,7 @@
 <script setup>
 import { ref } from "vue";
 
-defineEmits(["blur", "input", "focus"]);
+defineEmits(["blur", "input", "focus", "change"]);
 defineOptions({ inheritAttrs: true });
 
 // Props passed from parent component

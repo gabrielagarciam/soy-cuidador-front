@@ -15,21 +15,27 @@
         </p>
       </div>
       <form class="flex w-fit items-center" @submit.prevent="handleSubmit">
-        <InputBase
-          type="email"
-          placeholder="Tu correo electrónico"
-          class="!mb-0 !pl-0"
-          :disabled="formIsSubmitting"
-          v-model="formData.email"
-        />
-        <ButtonBase
-          color="primary"
-          variant="default"
-          type="submit"
-          :loading="formIsSubmitting"
-        >
-          Suscribirme
-        </ButtonBase>
+        <div class="h-16">
+          <InputBase
+            type="email"
+            placeholder="Tu correo electrónico"
+            class="!mb-0 !pl-0"
+            :disabled="formIsSubmitting"
+            :error="errors.email"
+            v-model="formData.email"
+            @blur="() => (errors.email ? validateField('email') : null)"
+          />
+        </div>
+        <div class="h-full pt-2 flex items-start">
+          <ButtonBase
+            color="primary"
+            variant="default"
+            type="submit"
+            :loading="formIsSubmitting"
+          >
+            Suscribirme
+          </ButtonBase>
+        </div>
       </form>
     </div>
   </div>
@@ -78,6 +84,7 @@ function validateField(field) {
 }
 
 async function handleSubmit(event) {
+  console.log("Form submitted", formData);
   event.preventDefault();
 
   // Validate all fields before submitting
@@ -97,6 +104,7 @@ async function handleSubmit(event) {
       });
       resetForm();
     } catch (error) {
+      console.log("error", error);
       if (error.status === 409) {
         useAlert().showAlert({
           message:
