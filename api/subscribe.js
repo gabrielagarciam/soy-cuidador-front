@@ -1,7 +1,6 @@
 import validator from "validator";
 import { connectToDatabase, COLLECTIONS } from '../db.js';
-import { postHandler } from "../utils/methodHandler.js";
-import { Errors } from "../utils/errorHandler.js";
+import { postHandler, Errors } from "../utils/index.js";
 
 const handler = async (req, res) => {
     const { email } = req.body;

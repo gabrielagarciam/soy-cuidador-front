@@ -1,5 +1,5 @@
 import { connectToDatabase, COLLECTIONS } from '../db.js';
-import { getHandler } from "../utils/methodHandler.js";
+import { getHandler } from "../utils/index.js";
 
 const handler = async function handler(req, res) {
     const {db} = await connectToDatabase();

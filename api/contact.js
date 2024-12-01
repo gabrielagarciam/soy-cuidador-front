@@ -1,7 +1,6 @@
 import { Resend } from 'resend';
 import validator from 'validator';
-import { postHandler } from "../utils/methodHandler.js";
-import { Errors } from "../utils/errorHandler.js";
+import { postHandler, Errors } from "../utils/index.js";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 

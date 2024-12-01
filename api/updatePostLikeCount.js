@@ -1,6 +1,5 @@
 import { connectToDatabase, COLLECTIONS } from '../db.js';
-import { postHandler } from "../utils/methodHandler.js";
-import { Errors } from "../utils/errorHandler.js";
+import { postHandler, Errors, isLocalhost } from "../utils/index.js";
 
 const handler = async function handler(req, res) {
     const { slug, increment } = req.body;
@@ -10,16 +9,25 @@ const handler = async function handler(req, res) {
     }
 
     const { db } = await connectToDatabase();
+    let updatedBlogPost;
 
-    // Update the likeCount field
-    const updatedBlogPost = await db.collection(COLLECTIONS.POSTS).findOneAndUpdate(
-        { slug },
-        { $inc: { likeCount: increment } },
-        {
-            returnDocument: 'after',
-            projection: { likeCount: 1 }
-        },
-    );
+
+    if (isLocalhost(req)) {
+        console.info('Like count not updated since request is local');
+        updatedBlogPost = await db.collection(COLLECTIONS.POSTS).findOne(
+            { slug },
+            { projection: { likeCount: 1 }}
+        );
+    } else {
+        updatedBlogPost = await db.collection(COLLECTIONS.POSTS).findOneAndUpdate(
+            { slug },
+            { $inc: { likeCount: increment } },
+            {
+                returnDocument: 'after',
+                projection: { likeCount: 1 }
+            },
+        );
+    }
 
     if (!updatedBlogPost) {
         throw Errors.notFound('Blog post not found');
