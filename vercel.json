@@ -1,10 +1,5 @@
 {
   "routes": [
-    { "src": "/", "dest": "/" },
-    { "src": "/home", "dest": "/" },
-    { "src": "/blog", "dest": "/" },
-    { "src": "/blog/:id", "dest": "/" },
-    { "src": "/contacto", "dest": "/" },
-    { "src": "/:pathMatch(.*)*", "dest": "/" }
+    { "src": "/(.*)", "dest": "/" }
   ]
 }
