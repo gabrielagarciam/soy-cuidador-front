@@ -1,54 +1,16 @@
+import BaseController from "./BaseController.js";
+
 /**
  * Controller class for handling post-related operations
  * @class PostController
  */
-class PostController {
+class PostController extends BaseController {
 
   static API_ENDPOINTS = {
     COLLECTION: '/api/getPostCollection',
     SINGLE_POST: '/api/getPost',
     UPDATE_LIKES: '/api/updatePostLikeCount'
   };
-
-  /**
-   * Default request headers for API calls
-   * @private
-   */
-  static #defaultHeaders = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-  };
-
-  /**
-   * Makes an API request with error handling
-   * @private
-   * @param {string} url - The API endpoint URL
-   * @param {Object} options - Request options
-   * @returns {Promise<any>} - Parsed response data
-   * @throws {Error} - Custom error with status code and message
-   */
-  static async #makeRequest(url, options = {}) {
-    try {
-      const response = await fetch(url, {
-        ...options,
-        headers: {
-          ...this.#defaultHeaders,
-          ...options.headers
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error(`API Error: ${response.status} - ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      if (error instanceof SyntaxError) {
-        throw new Error('Invalid JSON response from server');
-      }
-      throw new Error(`Request failed: ${error.message}`);
-    }
-  }
 
   /**
    * Validates a slug parameter
@@ -70,7 +32,7 @@ class PostController {
    */
   static async getCollection() {
     try {
-      const { documents } = await this.#makeRequest(this.API_ENDPOINTS.COLLECTION);
+      const { documents } = await super.makeRequest(this.API_ENDPOINTS.COLLECTION);
 
       if (!Array.isArray(documents)) {
         throw new Error('Invalid response format: documents is not an array');
@@ -97,7 +59,7 @@ class PostController {
       const url = new URL(this.API_ENDPOINTS.SINGLE_POST, window.location.origin);
       url.searchParams.append('slug', slug);
 
-      const post = await this.#makeRequest(url.toString());
+      const post = await super.makeRequest(url.toString());
 
       if (!post || typeof post !== 'object') {
         throw new Error('Invalid post data received');
@@ -121,7 +83,7 @@ class PostController {
     try {
       this.#validateSlug(slug);
 
-      const { likeCount } = await this.#makeRequest(this.API_ENDPOINTS.UPDATE_LIKES, {
+      const { likeCount } = await super.makeRequest(this.API_ENDPOINTS.UPDATE_LIKES, {
         method: 'POST',
         body: JSON.stringify({
           slug,
