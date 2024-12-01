@@ -97,14 +97,16 @@ onBeforeUnmount(() => useIsMobile().cleanup());
 
 <style lang="postcss">
 .hero-section {
-  background: url("../assets/heroBackground.svg") center bottom / cover
-    no-repeat;
+  background: url("../assets/heroBackground.svg");
+  background-size: cover;
   mask-size: cover;
   width: 100%;
   height: var(--screen-height);
   display: flex;
   justify-content: center;
   align-items: center;
+  background-repeat: no-repeat;
+  background-color: #6853ee;
 }
 .subscribe-section {
   @apply mt-10 overflow-hidden relative py-14 flex justify-center z-10;
@@ -137,6 +139,16 @@ onBeforeUnmount(() => useIsMobile().cleanup());
   }
 }
 
+@media screen and (min-width: 1100px) {
+  .hero-section {
+    background-position: center bottom !important;
+  }
+}
+@media screen and (max-width: 1100px) {
+  .hero-section {
+    background-position: left center !important;
+  }
+}
 @media only screen and (min-width: 48rem) and (max-width: 90rem) {
   .hero-section > div,
   .post-section > div,
