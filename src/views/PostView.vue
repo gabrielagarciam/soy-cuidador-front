@@ -66,7 +66,7 @@ onBeforeMount(async () => {
 
     loading.value = false;
   } catch (err) {
-    router.push({ name: "404" });
+    router.push({ name: "not-found" });
     loading.value = false;
   }
 });

@@ -1,11 +1,5 @@
 {
-  "routes": [
-    { "src": "/", "dest": "/" },
-    { "src": "/404", "dest": "/" },
-    { "src": "/home", "dest": "/" },
-    { "src": "/blog", "dest": "/" },
-    { "src": "/blog/:id", "dest": "/" },
-    { "src": "/contacto", "dest": "/" },
-    { "src": "/:pathMatch(.*)*", "dest": "/" }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
