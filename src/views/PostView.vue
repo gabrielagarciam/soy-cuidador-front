@@ -53,6 +53,7 @@ import calculateReadTime from "../utils/calculateReadTime";
 import PostViewSkeleton from "../components/PostViewSkeleton.vue";
 import PostController from "../controllers/PostController";
 import { marked } from "marked";
+import { useHead } from "@vueuse/head";
 
 const route = useRoute();
 const router = useRouter();
@@ -63,6 +64,15 @@ onBeforeMount(async () => {
   try {
     let _source = await PostController.get(route.params.id);
     source.value = _source;
+
+    useHead({
+      title:_source?.title,
+      meta: [
+        { property: "og:image", content: "/metaImage.png" }, // Referencia a la imagen estática
+        { property: "og:title", content: _source?.title },
+        { property: "og:description", content: _source?.description },
+      ],
+    });
 
     loading.value = false;
   } catch (err) {

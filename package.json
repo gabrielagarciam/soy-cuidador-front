@@ -17,6 +17,7 @@
     "@vercel/speed-insights": "^1.1.0",
     "@vueuse/components": "^11.2.0",
     "@vueuse/core": "^11.3.0",
+    "@vueuse/head": "^2.0.0",
     "marked": "^15.0.3",
     "mongodb": "^6.11.0",
     "resend": "^4.0.1",
