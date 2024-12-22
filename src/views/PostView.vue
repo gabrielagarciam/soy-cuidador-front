@@ -60,19 +60,19 @@ const router = useRouter();
 const source = ref({});
 const loading = ref(true);
 
+useHead({
+  title: source.value?.title,
+  meta: [
+    { property: "og:image", content: "/metaImage.png" }, // Referencia a la imagen estática
+    { property: "og:title", content: source.value?.title },
+    { property: "og:description", content: source.value?.description },
+  ],
+});
+
 onBeforeMount(async () => {
   try {
     let _source = await PostController.get(route.params.id);
     source.value = _source;
-
-    useHead({
-      title:_source?.title,
-      meta: [
-        { property: "og:image", content: "/metaImage.png" }, // Referencia a la imagen estática
-        { property: "og:title", content: _source?.title },
-        { property: "og:description", content: _source?.description },
-      ],
-    });
 
     loading.value = false;
   } catch (err) {
