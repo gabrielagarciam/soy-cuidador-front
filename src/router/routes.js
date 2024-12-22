@@ -7,6 +7,11 @@ const routes = [
     component: () => import("../views/404View.vue"),
   },
   {
+    path: "/404",
+    name: "404",
+    component: () => import("../views/404View.vue"),
+  },
+  {
     path: "/",
     component: TheMainLayout,
     redirect: () => ({ name: "home" }),

@@ -1,5 +1,5 @@
 <template>
-  <div  class="main-app-container">
+  <div  class="main-app-container w-full h-full">
     <RouterView />
     <SpeedInsights/>
   </div>

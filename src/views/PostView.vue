@@ -46,7 +46,7 @@
 
 <script setup>
 import { ref, onBeforeMount, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import SharePost from "../components/SharePost.vue";
 import LikePost from "../components/LikePost.vue";
 import calculateReadTime from "../utils/calculateReadTime";
@@ -55,10 +55,9 @@ import PostController from "../controllers/PostController";
 import { marked } from "marked";
 
 const route = useRoute();
+const router = useRouter();
 const source = ref({});
 const loading = ref(true);
-const error = ref("");
-const postBody = ref("");
 
 onBeforeMount(async () => {
   try {
@@ -67,7 +66,7 @@ onBeforeMount(async () => {
 
     loading.value = false;
   } catch (err) {
-    error.value = "No se pudieron cargar el post";
+    router.push({ name: "404" });
     loading.value = false;
   }
 });

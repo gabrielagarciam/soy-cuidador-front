@@ -2,18 +2,36 @@
   <!-- Header -->
   <header
     :class="[
-      'h-16 px-4 fixed right-0 left-0 z-20 items-center flex w-full',
+      'px-4 fixed right-0 left-0 z-20 items-center flex w-full h-20',
       containerClass,
     ]"
   >
     <div class="flex justify-between items-center w-full">
       <!-- Logo -->
-      <div class="font-semibold h-8 w-fit flex items-center">
+      <div class="font-semibold w-fit flex items-center">
         <RouterLink to="/">
           <div class="flex gap-2 items-center mx-1">
-            <div
-              class="bg-white h-12 w-12 rounded-full border border-primary"
-            ></div>
+            <div class="flex items-center">
+              <img
+                v-if="showWhiteImagotipo"
+                src="@/assets/logo/imagotipoWhite.svg"
+                alt="Logo"
+                class="w-20 h-auto p-2"
+              />
+              <img
+                v-else
+                src="@/assets/logo/imagotipoColor.svg"
+                alt="Logo"
+                class="w-20 h-auto p-3"
+              />
+
+              <h2
+                class="text-black font-bold text-2xl"
+                v-if="!showWhiteImagotipo"
+              >
+                Soy cuidador
+              </h2>
+            </div>
           </div>
         </RouterLink>
       </div>
@@ -88,6 +106,10 @@ const routerLinks = computed(() => [
 
 // Get scrollYPosition directly from the composable
 const { scrollYPosition } = useScrollYPosition();
+
+const showWhiteImagotipo = computed(() => {
+  return scrollYPosition.value <= 10 && route.name === "home";
+});
 
 const containerClass = computed(() => {
   return (
