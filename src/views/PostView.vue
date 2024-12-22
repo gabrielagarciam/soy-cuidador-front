@@ -53,26 +53,23 @@ import calculateReadTime from "../utils/calculateReadTime";
 import PostViewSkeleton from "../components/PostViewSkeleton.vue";
 import PostController from "../controllers/PostController";
 import { marked } from "marked";
-import { useHead } from '@vueuse/core';
 
 const route = useRoute();
 const router = useRouter();
 const source = ref({});
 const loading = ref(true);
 
-useHead({
-  title: source.value?.title,
-  meta: [
-    { property: "og:image", content: "/metaImage.png" }, // Referencia a la imagen estática
-    { property: "og:title", content: source.value?.title },
-    { property: "og:description", content: source.value?.description },
-  ],
-});
+
+
 
 onBeforeMount(async () => {
   try {
     let _source = await PostController.get(route.params.id);
     source.value = _source;
+    document.title = `Soy Cuidador: ${source.value.title}`;
+    document.description = source.value.description;
+
+    
 
     loading.value = false;
   } catch (err) {
