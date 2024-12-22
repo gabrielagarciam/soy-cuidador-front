@@ -81,7 +81,7 @@ const handler = async (req, res) => {
 
     const { error } = await resend.emails.send({
         from: 'Your Company <onboarding@resend.dev>',
-        to: 'gabrielpinto16@gmail.com',
+        to: 'soycuidador.info@gmail.com',
         subject: `New Contact Form Submission from ${sanitizedName}`,
         html: `
             <h1>New Contact Form Submission</h1>
