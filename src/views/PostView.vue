@@ -53,7 +53,7 @@ import calculateReadTime from "../utils/calculateReadTime";
 import PostViewSkeleton from "../components/PostViewSkeleton.vue";
 import PostController from "../controllers/PostController";
 import { marked } from "marked";
-import { useHead } from "@vueuse/head";
+import { useHead } from '@vueuse/core';
 
 const route = useRoute();
 const router = useRouter();
