@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import "./style.css";
 import App from "./App.vue";
 import router from "./router";
+import { createHead } from "@vueuse/head";
 
 /* import the fontawesome core */
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -56,11 +57,15 @@ library.add(
   faChevronRight,
   faChevronLeft,
   faTimes,
-  faBars, 
+  faBars,
   faChevronDown
 );
 
 const app = createApp(App);
+
+// Create and use head
+const head = createHead();
+app.use(head);
 
 app.use(router);
 app.component("font-awesome-icon", FontAwesomeIcon);

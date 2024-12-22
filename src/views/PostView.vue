@@ -53,24 +53,23 @@ import calculateReadTime from "../utils/calculateReadTime";
 import PostViewSkeleton from "../components/PostViewSkeleton.vue";
 import PostController from "../controllers/PostController";
 import { marked } from "marked";
+import { useHead } from "@vueuse/head";
 
 const route = useRoute();
 const router = useRouter();
 const source = ref({});
 const loading = ref(true);
+const pageTitle = ref("");
 
-
-
+useHead({
+  title: pageTitle,
+});
 
 onBeforeMount(async () => {
   try {
     let _source = await PostController.get(route.params.id);
     source.value = _source;
-    document.title = `Soy Cuidador: ${source.value.title}`;
-    document.description = source.value.description;
-
-    
-
+    pageTitle.value =`Soy Cuidador: ${_source.title}`;
     loading.value = false;
   } catch (err) {
     router.push({ name: "not-found" });
