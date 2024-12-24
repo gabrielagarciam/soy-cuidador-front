@@ -7,6 +7,7 @@ const handler = async function handler(req, res) {
   const documents = await db
     .collection(COLLECTIONS.POSTS)
     .find({ public: true })
+    .sort({ date: 1 })
     .project({
       slug: 1,
       id: 1,
