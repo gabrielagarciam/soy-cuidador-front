@@ -12,7 +12,7 @@
             {{ source.title }}
           </h1>
           <h3
-            class="w-full text-center text-sm text-black/85 leading-none px-4 md:px-8"
+            class="w-full text-center text-sm text-black/85 px-4 md:px-8"
           >
             {{ source.description }}
           </h3>
@@ -112,23 +112,24 @@ async function handleLike() {
 
   .markdown-output h2 {
     font-size: 1.5rem; /* 80% of h1 */
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
   }
 
   .markdown-output h3 {
     font-size: 1.25rem; /* 67% of h1 */
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
   }
 
   .markdown-output h4 {
     font-size: 1.125rem; /* Slightly smaller for deep hierarchy */
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
   }
 
   .markdown-output p {
     font-size: 1rem; /* Base size for body text */
     line-height: 1.6; /* Increase readability */
     margin-bottom: 1rem;
+    text-align: justify;
   }
 
   .markdown-output ul,
@@ -137,6 +138,7 @@ async function handleLike() {
     line-height: 1.6;
     margin-left: 1.5rem; /* Indent lists for clarity */
     margin-bottom: 1rem;
+    text-align: justify;
   }
 
   .markdown-output strong {
