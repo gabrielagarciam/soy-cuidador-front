@@ -80,7 +80,7 @@ const handler = async (req, res) => {
     const { sanitizedName, email, sanitizedMessage } = validateInput(req.body);
 
     const { error } = await resend.emails.send({
-        from: 'Your Company <onboarding@resend.dev>',
+        from: 'Soy Cuidador Website <onboarding@resend.dev>',
         to: 'soycuidador.info@gmail.com',
         subject: `New Contact Form Submission from ${sanitizedName}`,
         html: `
