@@ -129,7 +129,6 @@ async function handleLike() {
     font-size: 1rem; /* Base size for body text */
     line-height: 1.6; /* Increase readability */
     margin-bottom: 1rem;
-    text-align: justify;
   }
 
   .markdown-output ul,
@@ -138,7 +137,6 @@ async function handleLike() {
     line-height: 1.6;
     margin-left: 1.5rem; /* Indent lists for clarity */
     margin-bottom: 1rem;
-    text-align: justify;
   }
 
   .markdown-output strong {
