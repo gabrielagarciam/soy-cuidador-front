@@ -96,6 +96,11 @@ async function handleLike() {
 
 <style lang="postcss">
 .post-content {
+
+  ol, ul, menu {
+    list-style: auto !important;
+  }
+
   &::after {
     @apply bg-purple-500/25 right-0 left-0 flex h-80 top-14 fixed w-screen -z-10;
     content: " ";
