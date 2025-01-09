@@ -97,8 +97,12 @@ async function handleLike() {
 <style lang="postcss">
 .post-content {
 
-  ol, ul, menu {
+  ol, menu {
     list-style: auto !important;
+  }
+
+  ul {
+    list-style: circle !important;
   }
 
   &::after {
