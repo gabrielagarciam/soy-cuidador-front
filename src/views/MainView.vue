@@ -67,6 +67,7 @@ const postCarouselProps = reactive({
   skeletonSize: 3,
   pageSize: 3,
 });
+
 // Get scrollYPosition directly from the composable
 const { scrollYPosition } = useScrollYPosition();
 const { isMobile } = useIsMobile();
