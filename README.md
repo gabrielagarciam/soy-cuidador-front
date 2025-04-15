@@ -1,12 +1,11 @@
 # 🧠 Personal Blog About Alzheimer’s
 
-This is a personal blog built with [Vue 3](https://vuejs.org/) and [Vite](https://vitejs.dev/), where I share my experience as a **caregiver for my mother with Alzheimer’s**. It’s a space for reflection, support, and giving voice to what many people live in silence.
+This is a personal blog built with [Vue 3](https://vuejs.org/) and [Vite](https://vitejs.dev/), created to share the story of a **caregiver for their mother with Alzheimer’s**. It’s a space for reflection, support, and giving voice to what many people live in silence.
 
 ## 🌐 Live Demo
 
 👉 [View the Blog on Vercel](https://www.yosoycuidador.com/)
 
-> Replace the link with your actual Vercel deployment URL.
 
 ## ✨ What You'll Find Here
 
@@ -51,7 +50,7 @@ vercel dev
 ```
 
 ## 💡 Purpose
-This blog was born from a deeply personal place. Being a caregiver is a profound and often invisible role. Through this project, I want to share what I’ve lived and learned — hoping to accompany other caregivers on their journey and remind them that they are not alone.
+This blog was born from a deeply personal story. Being a caregiver is a profound and often invisible role. Through this project, the aim is to share real experiences and reflections — offering support to other caregivers and reminding them that they are not alone.
 
 ## 🤍 License
 This project is for personal use and learning purposes. Feel free to explore it, get inspired, or adapt it with respect.
