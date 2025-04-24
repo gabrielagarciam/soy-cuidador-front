@@ -4,7 +4,7 @@ This is a personal blog built with [Vue 3](https://vuejs.org/) and [Vite](https:
 
 ## 🌐 Live Demo
 
-👉 [View the Blog on Vercel](https://www.yosoycuidador.com/)
+👉 [https://www.yosoycuidador.com](https://www.yosoycuidador.com/)
 
 
 ## ✨ What You'll Find Here
